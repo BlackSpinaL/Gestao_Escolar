@@ -37,13 +37,57 @@ if not set_background('fundo.jpg'):
 # --- CSS Personalizado ---
 st.markdown("""
 <style>
+    /* ===== FONTE RAWLINE (CDN do Design System gov.br) ===== */
+    @import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');
+
+    /* Aplica Rawline em TODOS os textos do app */
+    html, body, .stApp,
+    .stApp p, .stApp span, .stApp div, .stApp a, .stApp li,
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+    .stApp button, .stApp input, .stApp textarea, .stApp select,
+    .stApp label, .stApp table, .stApp th, .stApp td,
+    [data-testid="stMarkdownContainer"],
+    [data-testid="stWidgetLabel"],
+    [data-testid="stLinkButton"] a {
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+
+    /* Preserva a fonte dos ícones nativos do Streamlit (não remover!) */
+    [data-testid="stIconMaterial"],
+    .material-symbols-rounded,
+    span[class*="material-symbols"] {
+        font-family: 'Material Symbols Rounded' !important;
+    }
+
     /* Ajuste do container principal */
     .block-container {
         max-width: 1400px;
         padding-top: 3rem;
         padding-bottom: 3rem;
     }
-    
+
+    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS ===== */
+    .titulo-central {
+        text-align: center !important;
+        color: #1E3A8A !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        font-weight: 700;
+        font-size: 2.4rem;
+        line-height: 1.25;
+        margin: 0 0 0.4rem 0;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    .subtitulo-central {
+        text-align: center !important;
+        color: #1E3A8A !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin: 0 0 1.2rem 0;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
     /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
     div[data-testid="column"] {
         display: flex;
@@ -56,7 +100,7 @@ st.markdown("""
         display: flex;
         flex-direction: column;
         justify-content: space-between; /* Empurra o conteúdo para cima e o botão para baixo */
-        
+
         background-color: #ffffff;
         border-radius: 12px;
         border: 1px solid #E6DCCF;
@@ -65,14 +109,14 @@ st.markdown("""
         padding: 1.5rem 1rem;
         min-height: 200px; /* Altura mínima para manter o padrão visual */
     }
-    
+
     /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.2);
         border-color: #1E3A8A;
     }
-    
+
     /* 3. Garante que o bloco interno do Streamlit ocupe 100% da altura */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         display: flex;
@@ -83,36 +127,36 @@ st.markdown("""
 
     /* 4. Empurra o botão para a base do cartão */
     .stLinkButton {
-        margin-top: auto !important; 
+        margin-top: auto !important;
     }
 
     /* Estilo dos Botões (Azul escuro) */
     .stLinkButton > a {
-        background-color: #1E3A8A !important; 
+        background-color: #1E3A8A !important;
         color: white !important;
         border-radius: 8px !important;
         border: none !important;
         font-weight: 600 !important;
         transition: background-color 0.2s !important;
     }
-    
+
     .stLinkButton > a:hover {
         background-color: #3B82F6 !important;
         color: white !important;
     }
-    
-    /* Títulos em Azul Escuro */
-    h1, h2, h3 {
+
+    /* Títulos em Azul Escuro (cabeçalhos dos cartões) */
+    h1, h2, h3, h4, h5, h6 {
         color: #1E3A8A !important;
         text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     }
 
     /* 5. Estilo do Rodapé */
     .rodape-custom {
-        text-align: center; 
-        color: #1E3A8A; 
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        font-size: 14px; 
+        text-align: center;
+        color: #1E3A8A;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
         margin-top: 2rem;
         font-weight: normal;
         line-height: 1.6;
@@ -120,9 +164,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e Instruções ---
-st.title("🏫 Sistema de Gerenciamento Escolar")
-st.markdown("##### Selecione uma ferramenta para começar (abrirá em nova aba):")
+# --- Título e Instruções (CENTRALIZADOS) ---
+st.markdown(
+    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>',
+    unsafe_allow_html=True
+)
 st.markdown("---")
 
 # --- Dicionário de Aplicativos ---
