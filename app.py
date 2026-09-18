@@ -1,57 +1,70 @@
 import streamlit as st
 import base64
 
-# Configuração da página (Layout wide para aproveitar melhor a tela)
+# Configuração da página (Layout wide)
 st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- Função para carregar a imagem de forma segura ---
-def carregar_banner(caminho_imagem):
-    try:
-        with open(caminho_imagem, "rb") as f:
-            img_base64 = base64.b64encode(f.read()).decode()
-        # Descobre se é jpg ou png para o tipo correto
-        tipo = "jpeg" if caminho_imagem.endswith(".jpg") else "png"
-        return f'''
-        <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-            <img src="data:image/{tipo};base64,{img_base64}" style="width: 100%; max-width: 1100px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
-        </div>
-        '''
-    except FileNotFoundError:
-        return None
+# --- Função para carregar a imagem de fundo em Base64 ---
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
-# --- CSS Personalizado (Cores extraídas da imagem) ---
+# --- Aplica o fundo personalizado com sobreposição (Overlay) ---
+def set_background(png_file):
+    try:
+        bin_str = get_base64(png_file)
+        # O truque está aqui: um gradiente bege semi-transparente (0.90) sobre a imagem
+        page_bg_img = f'''
+        <style>
+        .stApp {{
+            background-image: linear-gradient(rgba(250, 246, 239, 0.88), rgba(250, 246, 239, 0.88)), url("data:image/jpeg;base64,{bin_str}");
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        '''
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+        return True
+    except FileNotFoundError:
+        return False
+
+# Tenta carregar a imagem (fundo.jpg ou fundo.png)
+if not set_background('fundo.jpg'):
+    if not set_background('fundo.png'):
+        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
+
+# --- CSS Personalizado para os Cartões e Botões ---
 st.markdown("""
 <style>
-    /* 1. Fundo do painel em bege bem clarinho (combina com a imagem) */
-    .stApp {
-        background-color: #FAF6EF;
-    }
-    
-    /* 2. Ajuste do container principal */
+    /* Ajuste do container principal */
     .block-container {
-        max-width: 1100px;
-        padding-top: 2rem;
+        max-width: 1400px; /* Aumentado para caber 4 colunas confortavelmente */
+        padding-top: 3rem;
         padding-bottom: 3rem;
     }
     
-    /* 3. Estilo dos Cartões */
+    /* Estilo dos Cartões (Fundo branco para destacar da imagem) */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #ffffff;
         border-radius: 12px;
-        border: 1px solid #E6DCCF; /* Borda bege sutil */
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid #E6DCCF;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
         padding: 1rem;
+        height: 100%; /* Para os cartões terem a mesma altura na linha */
     }
     
     /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.15); /* Sombra azulada */
+        box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.2);
         border-color: #1E3A8A;
     }
     
-    /* 4. Estilo dos Botões (Azul escuro igual ao texto da imagem) */
+    /* Estilo dos Botões (Azul escuro) */
     .stLinkButton > a {
         background-color: #1E3A8A !important; 
         color: white !important;
@@ -61,29 +74,18 @@ st.markdown("""
         transition: background-color 0.2s !important;
     }
     
-    /* Efeito ao passar o mouse no botão */
     .stLinkButton > a:hover {
-        background-color: #3B82F6 !important; /* Azul mais claro */
+        background-color: #3B82F6 !important;
         color: white !important;
     }
     
-    /* 5. Títulos em Azul Escuro */
+    /* Títulos em Azul Escuro */
     h1, h2, h3 {
         color: #1E3A8A !important;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* Sombra branca para destacar do fundo */
     }
 </style>
 """, unsafe_allow_html=True)
-
-# --- Banner no Topo ---
-# Tenta carregar 'fundo.jpg', se não achar tenta 'fundo.png'
-banner_html = carregar_banner("fundo.jpg")
-if not banner_html:
-    banner_html = carregar_banner("fundo.png")
-
-if banner_html:
-    st.markdown(banner_html, unsafe_allow_html=True)
-else:
-    st.warning("⚠️ Imagem de banner não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' foi enviado para o GitHub com o nome exato.")
 
 # --- Título e Instruções ---
 st.title("🏫 Sistema de Gerenciamento Escolar")
@@ -102,15 +104,15 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# Cria as colunas para os botões (3 colunas)
-cols = st.columns(3)
+# Cria as colunas para os botões (Agora com 4 colunas)
+cols = st.columns(4)
 
 for i, (nome, info) in enumerate(apps.items()):
-    with cols[i % 3]:
+    with cols[i % 4]: # O módulo 4 garante que ele pule para a próxima linha após 4 itens
         with st.container(border=True):
             st.subheader(f"{info['icone']} {nome}")
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
 
 # --- Rodapé ---
 st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #8C7A6B;'>Desenvolvido para otimizar a gestão escolar.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #1E3A8A; font-weight: bold;'>Desenvolvido para otimizar a gestão escolar.</p>", unsafe_allow_html=True)
