@@ -1,47 +1,80 @@
 import streamlit as st
-import base64
 
 # Configuração da página
-st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="centered", initial_sidebar_state="collapsed")
 
-# Função para carregar a imagem de fundo
-def get_base64(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-# Aplica o fundo personalizado
-def set_background(png_file):
-    bin_str = get_base64(png_file)
-    page_bg_img = '''
-    <style>
+# --- CSS Personalizado (O segredo do visual) ---
+st.markdown("""
+<style>
+    /* 1. Fundo em degradê azul suave (combina com a imagem) */
     .stApp {
-        background-image: url("data:image/png;base64,%s");
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
     }
-    /* Deixa o conteúdo mais legível sobre a imagem */
+    
+    /* 2. Ajuste do container principal */
     .block-container {
-        background-color: rgba(255, 255, 255, 0.90);
-        border-radius: 15px;
-        padding: 2rem;
-        margin-top: 2rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding-top: 1rem;
+        padding-bottom: 3rem;
+        max-width: 1100px;
     }
-    </style>
-    ''' % bin_str
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    
+    /* 3. Estilo dos Cartões (onde ficam os botões) */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #bcccdc; /* Borda azul clara */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+    }
+    
+    /* Efeito ao passar o mouse no cartão */
+    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: #1E3A8A; /* Borda azul escura ao passar o mouse */
+    }
+    
+    /* 4. Estilo dos Botões (Azul escuro combinando com a imagem) */
+    .stLinkButton > a {
+        background-color: #1E3A8A !important; /* Azul escuro */
+        color: white !important;
+        border-radius: 8px !important;
+        border: none !important;
+        font-weight: 600 !important;
+        transition: background-color 0.2s !important;
+    }
+    
+    /* Efeito ao passar o mouse no botão */
+    .stLinkButton > a:hover {
+        background-color: #3B82F6 !important; /* Azul mais claro */
+        color: white !important;
+    }
+    
+    /* 5. Título principal */
+    h1 {
+        color: #1E3A8A !important;
+        font-weight: 700 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-# Tenta carregar a imagem de fundo
+# --- Banner no Topo ---
+# Certifique-se de que a imagem está no repositório com o nome 'fundo.jpg' ou 'fundo.png'
 try:
-    set_background('fundo.jpg') # Mude para .jpg se você converter a imagem
+    # Tenta carregar a imagem e aplica uma borda arredondada nela via HTML
+    st.image("fundo.jpg", use_container_width=True)
 except:
     try:
-        set_background('fundo.png') # Mantém o png caso não tenha convertido ainda
+        st.image("fundo.png", use_container_width=True)
     except:
-        st.warning("Imagem de fundo não encontrada. Usando fundo padrão.")
+        st.warning("Imagem de banner não encontrada. Verifique se o arquivo 'fundo.jpg' está no repositório.")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# --- Título e Instruções ---
+st.title("🏫 Sistema de Gerenciamento Escolar")
+st.markdown("##### Selecione uma ferramenta para começar (abrirá em nova aba):")
+st.markdown("---")
 
 # --- Dicionário de Aplicativos ---
 apps = {
@@ -55,11 +88,6 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# --- TELA DO PAINEL (MENU) ---
-st.title("🏫 Sistema de Gerenciamento Escolar")
-st.markdown("### Selecione uma ferramenta para começar (abrirá em nova aba):")
-st.markdown("---")
-
 # Cria as colunas para os botões (3 colunas)
 cols = st.columns(3)
 
@@ -70,3 +98,7 @@ for i, (nome, info) in enumerate(apps.items()):
             st.subheader(f"{info['icone']} {nome}")
             # st.link_button abre o link em uma nova aba automaticamente
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
+
+# --- Rodapé ---
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #64748B;'>Desenvolvido para otimizar a gestão escolar.</p>", unsafe_allow_html=True)
