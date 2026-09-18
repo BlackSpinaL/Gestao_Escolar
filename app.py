@@ -44,44 +44,45 @@ st.markdown("""
         padding-bottom: 3rem;
     }
     
-    /* 1. Força a coluna a esticar e ser um flex container */
+    /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
     div[data-testid="column"] {
         display: flex;
         flex-direction: column;
     }
 
-    /* 2. Força o bloco vertical dentro da coluna a preencher todo o espaço */
-    div[data-testid="column"] > div {
-        height: 100%;
+    /* 2. Força o cartão (com borda) a preencher todo o espaço da coluna */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        flex: 1;
         display: flex;
         flex-direction: column;
-    }
-
-    /* 3. Estilo dos Cartões (Fundo branco, altura igual e alinhamento flexível) */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+        justify-content: space-between; /* Empurra o conteúdo para cima e o botão para baixo */
+        
         background-color: #ffffff;
         border-radius: 12px;
         border: 1px solid #E6DCCF;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
         padding: 1.5rem 1rem;
-        
-        /* Força altura igual e distribui o conteúdo */
-        height: 100%; 
-        min-height: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; 
+        min-height: 200px; /* Altura mínima para manter o padrão visual */
     }
     
+    /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.2);
         border-color: #1E3A8A;
     }
     
-    /* 4. Empurra o botão para o final do cartão */
-    div[data-testid="stLinkButton"] {
+    /* 3. Garante que o bloco interno do Streamlit ocupe 100% da altura */
+    div[data-testid="stVerticalBlockBorderWrapper"] > div {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+    }
+
+    /* 4. Empurra o botão para a base do cartão */
+    .stLinkButton {
         margin-top: auto !important; 
     }
 
@@ -106,7 +107,7 @@ st.markdown("""
         text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     }
 
-    /* 5. Estilo do Rodapé (Fonte Rawline, tamanho 14) */
+    /* 5. Estilo do Rodapé */
     .rodape-custom {
         text-align: center; 
         color: #1E3A8A; 
