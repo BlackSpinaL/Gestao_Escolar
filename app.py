@@ -44,12 +44,13 @@ except:
 # --- Dicionário de Aplicativos ---
 # Aqui você organiza seus apps. 
 # 'tipo': 'streamlit' para apps do streamlit, 'html' para os links do GitHub Pages
+# Adicionado '?embed=true' nas URLs do Streamlit para permitir a exibição no iframe
 apps = {
-    "Aulas no Siea": {"url": "https://aulasnosiea.streamlit.app/", "tipo": "streamlit", "icone": "📚"},
-    "Avaliação Especial": {"url": "https://avaliacaoespecial.streamlit.app/", "tipo": "streamlit", "icone": "📝"},
-    "Bolsa Família": {"url": "https://bolsa-familia.streamlit.app/", "tipo": "streamlit", "icone": "💰"},
-    "Pontuação no SGE": {"url": "https://pontuacaonosge.streamlit.app/", "tipo": "streamlit", "icone": "📊"},
-    "Verificar Notas nos Diários": {"url": "https://verificarnotasnosdiarios.streamlit.app/", "tipo": "streamlit", "icone": "📓"},
+    "Aulas no Siea": {"url": "https://aulasnosiea.streamlit.app/?embed=true", "tipo": "streamlit", "icone": "📚"},
+    "Avaliação Especial": {"url": "https://avaliacaoespecial.streamlit.app/?embed=true", "tipo": "streamlit", "icone": "📝"},
+    "Bolsa Família": {"url": "https://bolsa-familia.streamlit.app/?embed=true", "tipo": "streamlit", "icone": "💰"},
+    "Pontuação no SGE": {"url": "https://pontuacaonosge.streamlit.app/?embed=true", "tipo": "streamlit", "icone": "📊"},
+    "Verificar Notas nos Diários": {"url": "https://verificarnotasnosdiarios.streamlit.app/?embed=true", "tipo": "streamlit", "icone": "📓"},
     "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "tipo": "html", "icone": "🏢"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "tipo": "html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "tipo": "html", "icone": "📱"},
