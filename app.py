@@ -14,7 +14,6 @@ def get_base64(bin_file):
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
-        # O truque está aqui: um gradiente bege semi-transparente (0.88) sobre a imagem
         page_bg_img = f'''
         <style>
         .stApp {{
@@ -31,17 +30,13 @@ def set_background(png_file):
     except FileNotFoundError:
         return False
 
-# Tenta carregar a imagem (fundo.jpg ou fundo.png)
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
         st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
 
-# --- CSS Personalizado para os Cartões, Botões e Rodapé ---
+# --- CSS Personalizado ---
 st.markdown("""
 <style>
-    /* Importa a fonte cursiva do Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
-
     /* Ajuste do container principal */
     .block-container {
         max-width: 1400px;
@@ -49,7 +44,20 @@ st.markdown("""
         padding-bottom: 3rem;
     }
     
-    /* Estilo dos Cartões (Fundo branco, altura igual e alinhamento flexível) */
+    /* 1. Força a coluna a esticar e ser um flex container */
+    div[data-testid="column"] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 2. Força o bloco vertical dentro da coluna a preencher todo o espaço */
+    div[data-testid="column"] > div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 3. Estilo dos Cartões (Fundo branco, altura igual e alinhamento flexível) */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #ffffff;
         border-radius: 12px;
@@ -58,23 +66,23 @@ st.markdown("""
         transition: all 0.3s ease;
         padding: 1.5rem 1rem;
         
-        /* A MÁGICA ACONTECE AQUI: */
-        min-height: 240px; /* Força todos os cartões a terem a mesma altura mínima */
+        /* Força altura igual e distribui o conteúdo */
+        height: 100%; 
+        min-height: 220px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Empurra o título para cima e o botão para baixo */
+        justify-content: space-between; 
     }
     
-    /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.2);
         border-color: #1E3A8A;
     }
     
-    /* Garante que o botão fique sempre no final do cartão */
+    /* 4. Empurra o botão para o final do cartão */
     div[data-testid="stLinkButton"] {
-        margin-top: auto; 
+        margin-top: auto !important; 
     }
 
     /* Estilo dos Botões (Azul escuro) */
@@ -98,14 +106,15 @@ st.markdown("""
         text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     }
 
-    /* Estilo do Rodapé Cursivo */
-    .rodape-cursivo {
+    /* 5. Estilo do Rodapé (Fonte Rawline, tamanho 14) */
+    .rodape-custom {
         text-align: center; 
         color: #1E3A8A; 
-        font-family: 'Dancing Script', cursive; 
-        font-size: 1.6rem; 
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        font-size: 14px; 
         margin-top: 2rem;
-        font-weight: 600;
+        font-weight: normal;
+        line-height: 1.6;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -138,7 +147,7 @@ for i, (nome, info) in enumerate(apps.items()):
 
 # --- Rodapé ---
 st.markdown("""
-<p class='rodape-cursivo'>
+<p class='rodape-custom'>
     Desenvolvido por André Torres<br>
     e-mail: andretorres.adm@gmail.com<br>
     para otimizar a gestão escolar.
