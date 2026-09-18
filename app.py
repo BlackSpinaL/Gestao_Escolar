@@ -1,42 +1,59 @@
 import streamlit as st
+import base64
 
-# Configuração da página
-st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="centered", initial_sidebar_state="collapsed")
+# Configuração da página (Layout wide para aproveitar melhor a tela)
+st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- CSS Personalizado (O segredo do visual) ---
+# --- Função para carregar a imagem de forma segura ---
+def carregar_banner(caminho_imagem):
+    try:
+        with open(caminho_imagem, "rb") as f:
+            img_base64 = base64.b64encode(f.read()).decode()
+        # Descobre se é jpg ou png para o tipo correto
+        tipo = "jpeg" if caminho_imagem.endswith(".jpg") else "png"
+        return f'''
+        <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+            <img src="data:image/{tipo};base64,{img_base64}" style="width: 100%; max-width: 1100px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+        </div>
+        '''
+    except FileNotFoundError:
+        return None
+
+# --- CSS Personalizado (Cores extraídas da imagem) ---
 st.markdown("""
 <style>
-    /* 1. Fundo em degradê azul suave (combina com a imagem) */
+    /* 1. Fundo do painel em bege bem clarinho (combina com a imagem) */
     .stApp {
-        background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+        background-color: #FAF6EF;
     }
     
     /* 2. Ajuste do container principal */
     .block-container {
-        padding-top: 1rem;
-        padding-bottom: 3rem;
         max-width: 1100px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
     }
     
-    /* 3. Estilo dos Cartões (onde ficam os botões) */
+    /* 3. Estilo dos Cartões */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #ffffff;
         border-radius: 12px;
-        border: 1px solid #bcccdc; /* Borda azul clara */
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #E6DCCF; /* Borda bege sutil */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
+        padding: 1rem;
     }
     
     /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        border-color: #1E3A8A; /* Borda azul escura ao passar o mouse */
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.15); /* Sombra azulada */
+        border-color: #1E3A8A;
     }
     
-    /* 4. Estilo dos Botões (Azul escuro combinando com a imagem) */
+    /* 4. Estilo dos Botões (Azul escuro igual ao texto da imagem) */
     .stLinkButton > a {
-        background-color: #1E3A8A !important; /* Azul escuro */
+        background-color: #1E3A8A !important; 
         color: white !important;
         border-radius: 8px !important;
         border: none !important;
@@ -50,26 +67,23 @@ st.markdown("""
         color: white !important;
     }
     
-    /* 5. Título principal */
-    h1 {
+    /* 5. Títulos em Azul Escuro */
+    h1, h2, h3 {
         color: #1E3A8A !important;
-        font-weight: 700 !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # --- Banner no Topo ---
-# Certifique-se de que a imagem está no repositório com o nome 'fundo.jpg' ou 'fundo.png'
-try:
-    # Tenta carregar a imagem e aplica uma borda arredondada nela via HTML
-    st.image("fundo.jpg", use_container_width=True)
-except:
-    try:
-        st.image("fundo.png", use_container_width=True)
-    except:
-        st.warning("Imagem de banner não encontrada. Verifique se o arquivo 'fundo.jpg' está no repositório.")
+# Tenta carregar 'fundo.jpg', se não achar tenta 'fundo.png'
+banner_html = carregar_banner("fundo.jpg")
+if not banner_html:
+    banner_html = carregar_banner("fundo.png")
 
-st.markdown("<br>", unsafe_allow_html=True)
+if banner_html:
+    st.markdown(banner_html, unsafe_allow_html=True)
+else:
+    st.warning("⚠️ Imagem de banner não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' foi enviado para o GitHub com o nome exato.")
 
 # --- Título e Instruções ---
 st.title("🏫 Sistema de Gerenciamento Escolar")
@@ -93,12 +107,10 @@ cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
     with cols[i % 3]:
-        # Cria um container visual para cada botão
         with st.container(border=True):
             st.subheader(f"{info['icone']} {nome}")
-            # st.link_button abre o link em uma nova aba automaticamente
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
 
 # --- Rodapé ---
 st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #64748B;'>Desenvolvido para otimizar a gestão escolar.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #8C7A6B;'>Desenvolvido para otimizar a gestão escolar.</p>", unsafe_allow_html=True)
