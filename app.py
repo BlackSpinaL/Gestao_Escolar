@@ -52,7 +52,7 @@ st.markdown("""
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
 
-    /* Preserva a fonte dos ícones nativos do Streamlit (não remover!) */
+    /* Preserva a fonte dos ícones nativos do Streamlit */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"] {
@@ -94,20 +94,19 @@ st.markdown("""
         flex-direction: column;
     }
 
-    /* 2. Força o cartão (com borda) a preencher todo o espaço da coluna */
+    /* 2. ALTURA FIXA para todos os cartões ficarem perfeitamente alinhados */
     div[data-testid="stVerticalBlockBorderWrapper"] {
-        flex: 1;
+        height: 230px !important;          /* Altura fixa — todos iguais */
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Empurra o conteúdo para cima e o botão para baixo */
+        justify-content: space-between;
 
         background-color: #ffffff;
         border-radius: 12px;
         border: 1px solid #E6DCCF;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
-        padding: 1.5rem 1rem;
-        min-height: 200px; /* Altura mínima para manter o padrão visual */
+        padding: 1.2rem 1rem;
     }
 
     /* Efeito ao passar o mouse no cartão */
@@ -117,7 +116,7 @@ st.markdown("""
         border-color: #1E3A8A;
     }
 
-    /* 3. Garante que o bloco interno do Streamlit ocupe 100% da altura */
+    /* 3. Bloco interno com altura 100% e distribuição equilibrada */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         display: flex;
         flex-direction: column;
@@ -125,7 +124,22 @@ st.markdown("""
         justify-content: space-between;
     }
 
-    /* 4. Empurra o botão para a base do cartão */
+    /* 4. Título dos cartões — área com altura fixa para não desalinhar */
+    .card-titulo {
+        min-height: 80px;              /* Garante alinhamento mesmo com 1 ou 2 linhas */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #1E3A8A !important;
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.3;
+        margin: 0 0 0.8rem 0;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    /* 5. Empurra o botão para a base do cartão */
     .stLinkButton {
         margin-top: auto !important;
     }
@@ -138,6 +152,7 @@ st.markdown("""
         border: none !important;
         font-weight: 600 !important;
         transition: background-color 0.2s !important;
+        padding: 0.5rem 1rem !important;
     }
 
     .stLinkButton > a:hover {
@@ -145,13 +160,13 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Títulos em Azul Escuro (cabeçalhos dos cartões) */
+    /* Títulos em Azul Escuro */
     h1, h2, h3, h4, h5, h6 {
         color: #1E3A8A !important;
         text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
     }
 
-    /* 5. Estilo do Rodapé */
+    /* 6. Estilo do Rodapé */
     .rodape-custom {
         text-align: center;
         color: #1E3A8A;
@@ -191,13 +206,17 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# Cria as colunas para os botões (4 colunas)
-cols = st.columns(4)
+# Cria as colunas para os botões (3 colunas = 3x3 perfeito para 9 apps)
+cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
-    with cols[i % 4]:
+    with cols[i % 3]:
         with st.container(border=True):
-            st.subheader(f"{info['icone']} {nome}")
+            # Título dentro de um div com altura mínima fixa (evita desalinhamento)
+            st.markdown(
+                f'<div class="card-titulo">{info["icone"]} {nome}</div>',
+                unsafe_allow_html=True
+            )
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
 
 # --- Rodapé ---
