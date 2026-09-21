@@ -182,6 +182,10 @@ apps = {
     "Bolsa Família": {"url": "https://bolsa-familia.streamlit.app/", "icone": "💰"},
     "Pontuação no SGE": {"url": "https://pontuacaonosge.streamlit.app/", "icone": "📊"},
     "Verificar Notas nos Diários": {"url": "https://verificarnotasnosdiarios.streamlit.app/", "icone": "📓"},
+    "Verificar Aulas Faltantes no Diário": {
+        "url": "https://verificaraulasquefaltamnodiario.streamlit.app/",
+        "icone": "🔎"
+    },
     "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
