@@ -190,17 +190,14 @@ st.markdown(
 )
 st.markdown("---")
 
-# --- Dicionário de Aplicativos ---
+# --- Dicionário de Aplicativos (LINKS ATUALIZADOS) ---
 apps = {
-    "Aulas no Siea": {"url": "https://aulasnosiea.streamlit.app/", "icone": "📚"},
-    "Avaliação Especial": {"url": "https://avaliacaoespecial.streamlit.app/", "icone": "📝"},
-    "Bolsa Família": {"url": "https://bolsa-familia.streamlit.app/", "icone": "💰"},
-    "Pontuação no SGE": {"url": "https://pontuacaonosge.streamlit.app/", "icone": "📊"},
-    "Verificar Notas nos Diários": {"url": "https://verificarnotasnosdiarios.streamlit.app/", "icone": "📓"},
-    "Verificar Aulas Faltantes no Diário": {
-        "url": "https://verificaraulasquefaltamnodiario.streamlit.app/",
-        "icone": "🔎"
-    },
+    "Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
+    "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
+    "Bolsa Família": {"url": "https://bolsafamilia.streamlit.app/", "icone": "💰"},
+    "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
+    "Verificar Notas nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"},
+    "Verificar Aulas Faltantes no Diário": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icone": "🔎"},
     "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
