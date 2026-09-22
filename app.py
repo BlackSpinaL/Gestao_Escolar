@@ -10,13 +10,10 @@ def get_base64(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Aplica o fundo personalizado com sobreposição (Overlay) ---
-# --- MODIFICADO PARA ESCURECER O FUNDO EM 50% ---
+# --- Aplica o fundo personalizado com sobreposição de 50% ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
-        # --- LINHA ALTERADA ABAIXO ---
-        # Trocamos a sobreposição bege clara por preta (rgba(0, 0, 0)) com 50% de opacidade (0.5)
         page_bg_img = f'''
         <style>
         .stApp {{
@@ -33,13 +30,11 @@ def set_background(png_file):
     except FileNotFoundError:
         return False
 
-# Verificação de imagem de fundo (fundo.jpg ou fundo.png)
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
         st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
 
-# --- CSS Personalizado (Mantido) ---
-# --- (Opcional: Ajustar cores do texto se ficarem ilegíveis) ---
+# --- CSS Personalizado Adaptado para Tema Escuro ---
 st.markdown("""
 <style>
     /* ===== FONTE RAWLINE (CDN do Design System gov.br) ===== */
@@ -55,6 +50,7 @@ st.markdown("""
     [data-testid="stWidgetLabel"],
     [data-testid="stLinkButton"] a {
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        color: #FFFFFF !important;
     }
 
     /* Preserva a fonte dos ícones nativos do Streamlit */
@@ -71,27 +67,32 @@ st.markdown("""
         padding-bottom: 3rem;
     }
 
-    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS ===== */
-    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
+    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS (BRANCO) ===== */
     .titulo-central {
         text-align: center !important;
-        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
+        color: #FFFFFF !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 700;
         font-size: 2.4rem;
         line-height: 1.25;
         margin: 0 0 0.4rem 0;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Opcional: Remover se usar texto branco */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .subtitulo-central {
         text-align: center !important;
-        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
+        color: #E2E8F0 !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
         font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Opcional: Remover se usar texto branco */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Linha divisória customizada (Combina com o detalhe dourado da imagem) */
+    hr {
+        border-color: #F59E0B !important;
+        opacity: 0.8;
     }
 
     /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
@@ -100,17 +101,18 @@ st.markdown("""
         flex-direction: column;
     }
 
-    /* 2. ALTURA FIXA para todos os cartões ficarem perfeitamente alinhados */
+    /* 2. CARTÕES: Estilo Glassmorphism (Escuro semitransparente) */
     div[data-testid="stVerticalBlockBorderWrapper"] {
-        height: 230px !important;          /* Altura fixa — todos iguais */
+        height: 230px !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        background-color: #ffffff;
+        background-color: rgba(20, 20, 20, 0.65) !important;
+        backdrop-filter: blur(8px);
         border-radius: 12px;
-        border: 1px solid #E6DCCF;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         transition: all 0.3s ease;
         padding: 1.2rem 1rem;
     }
@@ -118,11 +120,11 @@ st.markdown("""
     /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 20px -3px rgba(30, 58, 138, 0.2);
-        border-color: #1E3A8A;
+        box-shadow: 0 12px 24px rgba(245, 158, 11, 0.25);
+        border-color: #F59E0B !important;
     }
 
-    /* 3. Bloco interno com altura 100% e distribuição equilibrada */
+    /* 3. Bloco interno com altura 100% */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         display: flex;
         flex-direction: column;
@@ -130,19 +132,19 @@ st.markdown("""
         justify-content: space-between;
     }
 
-    /* 4. Título dos cartões — área com altura fixa para não desalinhar */
+    /* 4. Título dos cartões */
     .card-titulo {
-        min-height: 80px;              /* Garante alinhamento mesmo com 1 ou 2 linhas */
+        min-height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        color: #1E3A8A !important;
+        color: #FFFFFF !important;
         font-size: 1.15rem;
         font-weight: 700;
         line-height: 1.3;
         margin: 0 0 0.8rem 0;
-        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     }
 
     /* 5. Empurra o botão para a base do cartão */
@@ -150,39 +152,41 @@ st.markdown("""
         margin-top: auto !important;
     }
 
-    /* Estilo dos Botões (Azul escuro) */
+    /* Estilo dos Botões (Azul com contraste elevado) */
     .stLinkButton > a {
-        background-color: #1E3A8A !important;
-        color: white !important;
+        background-color: #1E40AF !important;
+        color: #FFFFFF !important;
         border-radius: 8px !important;
-        border: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         font-weight: 600 !important;
-        transition: background-color 0.2s !important;
+        transition: all 0.2s ease !important;
         padding: 0.5rem 1rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .stLinkButton > a:hover {
         background-color: #3B82F6 !important;
-        color: white !important;
+        color: #FFFFFF !important;
+        border-color: #3B82F6 !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
 
-    /* Títulos em Azul Escuro */
-    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
+    /* Títulos padrão em Branco */
     h1, h2, h3, h4, h5, h6 {
-        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
-        text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* Opcional: Remover se usar texto branco */
+        color: #FFFFFF !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     /* 6. Estilo do Rodapé */
-    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
     .rodape-custom {
         text-align: center;
-        color: #1E3A8A; /* Mantenha assim, ou troque para #ffffff se necessário */
+        color: #CBD5E1 !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2rem;
         font-weight: normal;
         line-height: 1.6;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -198,7 +202,7 @@ st.markdown(
 )
 st.markdown("---")
 
-# --- Dicionário de Aplicativos (LINKS ATUALIZADOS) ---
+# --- Dicionário de Aplicativos ---
 apps = {
     "Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
@@ -211,13 +215,12 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# Cria as colunas para os botões (3 colunas = 3x3 perfeito para 9 apps)
+# Cria as colunas para os botões (3 colunas)
 cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
     with cols[i % 3]:
         with st.container(border=True):
-            # Título dentro de um div com altura mínima fixa (evita desalinhamento)
             st.markdown(
                 f'<div class="card-titulo">{info["icone"]} {nome}</div>',
                 unsafe_allow_html=True
