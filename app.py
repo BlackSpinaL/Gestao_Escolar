@@ -17,7 +17,7 @@ def set_background(png_file):
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -32,9 +32,9 @@ def set_background(png_file):
 
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
-        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no repositório com o nome exato.")
+        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se 'fundo.jpg' ou 'fundo.png' está na pasta do projeto.")
 
-# --- CSS Personalizado Adaptado para Tema Dourado com Cartões Visíveis ---
+# --- CSS Personalizado Adaptado para Tema Cinza/Grafite ---
 st.markdown("""
 <style>
     /* ===== FONTE RAWLINE ===== */
@@ -65,7 +65,7 @@ st.markdown("""
         padding-bottom: 2.5rem;
     }
 
-    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS ===== */
+    /* ===== TÍTULO E SUBTÍTULO ===== */
     .titulo-central {
         text-align: center !important;
         color: #FFFFFF !important;
@@ -79,7 +79,7 @@ st.markdown("""
 
     .subtitulo-central {
         text-align: center !important;
-        color: #E2E8F0 !important;
+        color: #CBD5E1 !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
         font-size: 1.1rem;
@@ -87,10 +87,10 @@ st.markdown("""
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }
 
-    /* Linha divisória em dourado */
+    /* Linha divisória em cinza prateado */
     hr {
-        border-color: #D97706 !important;
-        box-shadow: 0 0 8px rgba(217, 119, 6, 0.5);
+        border-color: #64748B !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
         opacity: 0.8;
     }
 
@@ -99,7 +99,7 @@ st.markdown("""
         flex-direction: column;
     }
 
-    /* ===== CARTÕES COM FUNDO ESCURO VISÍVEL ===== */
+    /* ===== CARTÕES EM CINZA ESCURO / GRAFITE ===== */
     div[data-testid="stVerticalBlockBorderWrapper"],
     div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
         height: 220px !important;
@@ -107,12 +107,11 @@ st.markdown("""
         flex-direction: column;
         justify-content: space-between;
 
-        /* Força o fundo escuro nos cartões */
-        background: rgba(18, 22, 31, 0.85) !important;
-        background-color: rgba(18, 22, 31, 0.85) !important;
+        background: rgba(24, 28, 36, 0.88) !important;
+        background-color: rgba(24, 28, 36, 0.88) !important;
         backdrop-filter: blur(8px) !important;
         border-radius: 12px !important;
-        border: 1px solid rgba(217, 119, 6, 0.45) !important;
+        border: 1px solid rgba(148, 163, 184, 0.35) !important;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6) !important;
         transition: all 0.3s ease !important;
         padding: 1.2rem 1rem !important;
@@ -120,10 +119,10 @@ st.markdown("""
 
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px) !important;
-        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.4) !important;
-        border-color: #F59E0B !important;
-        background: rgba(30, 35, 45, 0.92) !important;
-        background-color: rgba(30, 35, 45, 0.92) !important;
+        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15) !important;
+        border-color: #CBD5E1 !important;
+        background: rgba(38, 45, 56, 0.95) !important;
+        background-color: rgba(38, 45, 56, 0.95) !important;
     }
 
     /* Título do cartão */
@@ -145,12 +144,12 @@ st.markdown("""
         margin-top: auto !important;
     }
 
-    /* ===== BOTÕES EM DOURADO/ÂMBAR ===== */
+    /* ===== BOTÕES EM CINZA GRAFITE / PRATA (ALTO CONTRASTE) ===== */
     .stLinkButton > a {
-        background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
+        background: linear-gradient(135deg, #475569 0%, #334155 100%) !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
-        border: 1px solid #FBBF24 !important;
+        border: 1px solid #94A3B8 !important;
         font-size: 1rem !important;
         font-weight: 700 !important;
         transition: all 0.3s ease !important;
@@ -160,10 +159,10 @@ st.markdown("""
     }
 
     .stLinkButton > a:hover {
-        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+        background: linear-gradient(135deg, #64748B 0%, #475569 100%) !important;
         color: #FFFFFF !important;
-        border-color: #FEF08A !important;
-        box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+        border-color: #F8FAFC !important;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -173,7 +172,7 @@ st.markdown("""
     /* Rodapé */
     .rodape-custom {
         text-align: center;
-        color: #E2E8F0 !important;
+        color: #94A3B8 !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2.5rem;
@@ -208,7 +207,6 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# Cria as colunas para os botões (3 colunas)
 cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
