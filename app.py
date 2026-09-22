@@ -1,25 +1,25 @@
 import streamlit as st
 import base64
 
-# Configuração da página (Layout wide)
+# Configuração da página
 st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- Função para carregar a imagem de fundo em Base64 ---
+# --- Função para carregar a imagem em Base64 ---
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Aplica o fundo personalizado com sobreposição de 50% ---
+# --- Aplica o fundo escurecido ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
-            background-position: top center;
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }}
@@ -32,15 +32,13 @@ def set_background(png_file):
 
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
-        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
+        st.warning("⚠️ Imagem de fundo não encontrada!")
 
-# --- CSS Personalizado Adaptado para Tema Escuro ---
+# --- CSS Personalizado ---
 st.markdown("""
 <style>
-    /* ===== FONTE RAWLINE (CDN do Design System gov.br) ===== */
     @import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');
 
-    /* Aplica Rawline em TODOS os textos do app */
     html, body, .stApp,
     .stApp p, .stApp span, .stApp div, .stApp a, .stApp li,
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -53,78 +51,73 @@ st.markdown("""
         color: #FFFFFF !important;
     }
 
-    /* Preserva a fonte dos ícones nativos do Streamlit */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"] {
         font-family: 'Material Symbols Rounded' !important;
     }
 
-    /* Ajuste do container principal */
     .block-container {
         max-width: 1400px;
-        padding-top: 3rem;
-        padding-bottom: 3rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
 
-    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS (BRANCO) ===== */
+    /* ===== TÍTULO E SUBTÍTULO ===== */
     .titulo-central {
         text-align: center !important;
         color: #FFFFFF !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        font-weight: 700;
-        font-size: 2.4rem;
-        line-height: 1.25;
+        font-weight: 800;
+        font-size: 2.5rem;
+        line-height: 1.2;
         margin: 0 0 0.4rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
     }
 
     .subtitulo-central {
         text-align: center !important;
         color: #E2E8F0 !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         margin: 0 0 1.2rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }
 
-    /* Linha divisória customizada (Combina com o detalhe dourado da imagem) */
     hr {
-        border-color: #F59E0B !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 0 6px rgba(217, 119, 6, 0.5);
         opacity: 0.8;
     }
 
-    /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
     div[data-testid="column"] {
         display: flex;
         flex-direction: column;
     }
 
-    /* 2. CARTÕES: Estilo Glassmorphism (Escuro semitransparente) */
+    /* ===== CARTÕES / QUADRADOS COM RESPRIO VISUAL ===== */
     div[data-testid="stVerticalBlockBorderWrapper"] {
-        height: 230px !important;
+        height: 220px !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        background-color: rgba(20, 20, 20, 0.65) !important;
+        /* Fundo escuro levemente transparente para destacar do mapa */
+        background-color: rgba(18, 22, 31, 0.82) !important;
         backdrop-filter: blur(8px);
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(217, 119, 6, 0.35) !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
         transition: all 0.3s ease;
         padding: 1.2rem 1rem;
     }
 
-    /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(245, 158, 11, 0.25);
+        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.35);
         border-color: #F59E0B !important;
+        background-color: rgba(24, 30, 42, 0.9) !important;
     }
 
-    /* 3. Bloco interno com altura 100% */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         display: flex;
         flex-direction: column;
@@ -132,74 +125,62 @@ st.markdown("""
         justify-content: space-between;
     }
 
-    /* 4. Título dos cartões */
+    /* Título do cartão (Tamanho ideal: 1.2rem e bold) */
     .card-titulo {
-        min-height: 80px;
+        min-height: 75px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         color: #FFFFFF !important;
-        font-size: 1.15rem;
+        font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.3;
-        margin: 0 0 0.8rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        margin: 0 0 0.6rem 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
-    /* 5. Empurra o botão para a base do cartão */
     .stLinkButton {
         margin-top: auto !important;
     }
 
-    /* Estilo dos Botões (Azul com contraste elevado) */
+    /* ===== BOTÕES DOURADOS QUE COMBINAM COM A LINHA DO MAPA ===== */
     .stLinkButton > a {
-        background-color: #1E40AF !important;
+        background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        font-weight: 600 !important;
-        transition: all 0.2s ease !important;
-        padding: 0.5rem 1rem !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border: 1px solid #FBBF24 !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        transition: all 0.3s ease !important;
+        padding: 0.55rem 1rem !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
 
     .stLinkButton > a:hover {
-        background-color: #3B82F6 !important;
+        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
         color: #FFFFFF !important;
-        border-color: #3B82F6 !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        border-color: #FEF08A !important;
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
     }
 
-    /* Títulos padrão em Branco */
-    h1, h2, h3, h4, h5, h6 {
-        color: #FFFFFF !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    }
-
-    /* 6. Estilo do Rodapé */
+    /* Rodapé ajustado para leitura legível */
     .rodape-custom {
         text-align: center;
-        color: #CBD5E1 !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #E2E8F0 !important;
         font-size: 14px;
-        margin-top: 2rem;
-        font-weight: normal;
+        margin-top: 2.5rem;
+        font-weight: 500;
         line-height: 1.6;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e Instruções (CENTRALIZADOS) ---
-st.markdown(
-    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>',
-    unsafe_allow_html=True
-)
-st.markdown(
-    '<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>',
-    unsafe_allow_html=True
-)
+# --- Título e Subtítulo ---
+st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>', unsafe_allow_html=True)
 st.markdown("---")
 
 # --- Dicionário de Aplicativos ---
@@ -215,16 +196,12 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# Cria as colunas para os botões (3 colunas)
 cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
     with cols[i % 3]:
         with st.container(border=True):
-            st.markdown(
-                f'<div class="card-titulo">{info["icone"]} {nome}</div>',
-                unsafe_allow_html=True
-            )
+            st.markdown(f'<div class="card-titulo">{info["icone"]} {nome}</div>', unsafe_allow_html=True)
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
 
 # --- Rodapé ---
