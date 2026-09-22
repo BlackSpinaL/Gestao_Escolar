@@ -1,16 +1,16 @@
 import streamlit as st
 import base64
 
-# Configuração da página
+# Configuração da página (Layout wide)
 st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- Função para carregar a imagem em Base64 ---
+# --- Função para carregar a imagem de fundo em Base64 ---
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Aplica o fundo escurecido ---
+# --- Aplica o fundo personalizado com sobreposição ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
@@ -32,11 +32,12 @@ def set_background(png_file):
 
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
-        st.warning("⚠️ Imagem de fundo não encontrada!")
+        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no repositório com o nome exato.")
 
-# --- CSS Personalizado ---
+# --- CSS Personalizado Adaptado para Tema Dourado com Cartões Visíveis ---
 st.markdown("""
 <style>
+    /* ===== FONTE RAWLINE ===== */
     @import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');
 
     html, body, .stApp,
@@ -57,19 +58,21 @@ st.markdown("""
         font-family: 'Material Symbols Rounded' !important;
     }
 
+    /* Container principal */
     .block-container {
         max-width: 1400px;
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
     }
 
-    /* ===== TÍTULO E SUBTÍTULO ===== */
+    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS ===== */
     .titulo-central {
         text-align: center !important;
         color: #FFFFFF !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 800;
         font-size: 2.5rem;
-        line-height: 1.2;
+        line-height: 1.25;
         margin: 0 0 0.4rem 0;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
     }
@@ -77,15 +80,17 @@ st.markdown("""
     .subtitulo-central {
         text-align: center !important;
         color: #E2E8F0 !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }
 
+    /* Linha divisória em dourado */
     hr {
         border-color: #D97706 !important;
-        box-shadow: 0 0 6px rgba(217, 119, 6, 0.5);
+        box-shadow: 0 0 8px rgba(217, 119, 6, 0.5);
         opacity: 0.8;
     }
 
@@ -94,19 +99,19 @@ st.markdown("""
         flex-direction: column;
     }
 
-    /* ===== CARTÕES / QUADRADOS COM RESPRIO VISUAL ===== */
+    /* ===== CARTÕES COM FUNDO ESCURO SEMI-TRANSPARENTE ===== */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         height: 220px !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        /* Fundo escuro levemente transparente para destacar do mapa */
-        background-color: rgba(18, 22, 31, 0.82) !important;
-        backdrop-filter: blur(8px);
+        /* Fundo escuro semi-transparente para separar o texto do mapa */
+        background-color: rgba(20, 20, 25, 0.70) !important;
+        backdrop-filter: blur(6px);
         border-radius: 12px;
-        border: 1px solid rgba(217, 119, 6, 0.35) !important;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(217, 119, 6, 0.4) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
         transition: all 0.3s ease;
         padding: 1.2rem 1rem;
     }
@@ -115,7 +120,7 @@ st.markdown("""
         transform: translateY(-4px);
         box-shadow: 0 12px 24px rgba(217, 119, 6, 0.35);
         border-color: #F59E0B !important;
-        background-color: rgba(24, 30, 42, 0.9) !important;
+        background-color: rgba(30, 30, 35, 0.85) !important;
     }
 
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
@@ -125,7 +130,7 @@ st.markdown("""
         justify-content: space-between;
     }
 
-    /* Título do cartão (Tamanho ideal: 1.2rem e bold) */
+    /* Título do cartão */
     .card-titulo {
         min-height: 75px;
         display: flex;
@@ -144,7 +149,7 @@ st.markdown("""
         margin-top: auto !important;
     }
 
-    /* ===== BOTÕES DOURADOS QUE COMBINAM COM A LINHA DO MAPA ===== */
+    /* ===== BOTÕES EM DOURADO/ÂMBAR ===== */
     .stLinkButton > a {
         background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
         color: #FFFFFF !important;
@@ -165,10 +170,15 @@ st.markdown("""
         box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
     }
 
-    /* Rodapé ajustado para leitura legível */
+    h1, h2, h3, h4, h5, h6 {
+        color: #FFFFFF !important;
+    }
+
+    /* Rodapé */
     .rodape-custom {
         text-align: center;
         color: #E2E8F0 !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2.5rem;
         font-weight: 500;
@@ -179,8 +189,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Título e Subtítulo ---
-st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>', unsafe_allow_html=True)
+st.markdown(
+    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>',
+    unsafe_allow_html=True
+)
 st.markdown("---")
 
 # --- Dicionário de Aplicativos ---
@@ -196,12 +212,16 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
+# Cria as colunas para os botões (3 colunas)
 cols = st.columns(3)
 
 for i, (nome, info) in enumerate(apps.items()):
     with cols[i % 3]:
         with st.container(border=True):
-            st.markdown(f'<div class="card-titulo">{info["icone"]} {nome}</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="card-titulo">{info["icone"]} {nome}</div>',
+                unsafe_allow_html=True
+            )
             st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
 
 # --- Rodapé ---
