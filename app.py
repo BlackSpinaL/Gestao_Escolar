@@ -10,7 +10,7 @@ def get_base64(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Aplica o fundo personalizado com sobreposição de 50% ---
+# --- Aplica o fundo personalizado com sobreposição ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
@@ -34,13 +34,12 @@ if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
         st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
 
-# --- CSS Personalizado Adaptado para Tema Escuro ---
+# --- CSS Personalizado Adaptado para Tema Dourado ---
 st.markdown("""
 <style>
-    /* ===== FONTE RAWLINE (CDN do Design System gov.br) ===== */
+    /* ===== FONTE RAWLINE ===== */
     @import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');
 
-    /* Aplica Rawline em TODOS os textos do app */
     html, body, .stApp,
     .stApp p, .stApp span, .stApp div, .stApp a, .stApp li,
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -53,78 +52,81 @@ st.markdown("""
         color: #FFFFFF !important;
     }
 
-    /* Preserva a fonte dos ícones nativos do Streamlit */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"] {
         font-family: 'Material Symbols Rounded' !important;
     }
 
-    /* Ajuste do container principal */
+    /* Container principal */
     .block-container {
         max-width: 1400px;
         padding-top: 3rem;
         padding-bottom: 3rem;
     }
 
-    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS (BRANCO) ===== */
+    /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS COM GLOW DOURADO ===== */
     .titulo-central {
         text-align: center !important;
         color: #FFFFFF !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        font-weight: 700;
-        font-size: 2.4rem;
+        font-weight: 800;
+        font-size: 2.5rem;
         line-height: 1.25;
         margin: 0 0 0.4rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        /* Efeito de contorno e brilho dourado */
+        text-shadow: 
+            -1px -1px 0 #D97706,  
+             1px -1px 0 #D97706,
+            -1px  1px 0 #D97706,
+             1px  1px 0 #D97706,
+             0 0 12px rgba(245, 158, 11, 0.8);
     }
 
     .subtitulo-central {
         text-align: center !important;
-        color: #E2E8F0 !important;
+        color: #FEF3C7 !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
         font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
     }
 
-    /* Linha divisória customizada (Combina com o detalhe dourado da imagem) */
+    /* Linha divisória em dourado brilhante */
     hr {
         border-color: #F59E0B !important;
-        opacity: 0.8;
+        box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+        opacity: 0.9;
     }
 
-    /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
     div[data-testid="column"] {
         display: flex;
         flex-direction: column;
     }
 
-    /* 2. CARTÕES: Estilo Glassmorphism (Escuro semitransparente) */
+    /* ===== CARTÕES COM DETALHES DOURADOS ===== */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         height: 230px !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        background-color: rgba(20, 20, 20, 0.65) !important;
-        backdrop-filter: blur(8px);
+        background-color: rgba(15, 15, 15, 0.75) !important;
+        backdrop-filter: blur(10px);
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(245, 158, 11, 0.4) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         transition: all 0.3s ease;
         padding: 1.2rem 1rem;
     }
 
-    /* Efeito ao passar o mouse no cartão */
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(245, 158, 11, 0.25);
-        border-color: #F59E0B !important;
+        box-shadow: 0 12px 24px rgba(245, 158, 11, 0.4);
+        border-color: #FBBF24 !important;
     }
 
-    /* 3. Bloco interno com altura 100% */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         display: flex;
         flex-direction: column;
@@ -132,7 +134,7 @@ st.markdown("""
         justify-content: space-between;
     }
 
-    /* 4. Título dos cartões */
+    /* Título do cartão com contorno dourado */
     .card-titulo {
         min-height: 80px;
         display: flex;
@@ -144,54 +146,57 @@ st.markdown("""
         font-weight: 700;
         line-height: 1.3;
         margin: 0 0 0.8rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        text-shadow: 
+            -1px -1px 0 #B45309,  
+             1px -1px 0 #B45309,
+            -1px  1px 0 #B45309,
+             1px  1px 0 #B45309,
+             0 0 8px rgba(245, 158, 11, 0.6);
     }
 
-    /* 5. Empurra o botão para a base do cartão */
     .stLinkButton {
         margin-top: auto !important;
     }
 
-    /* Estilo dos Botões (Azul com contraste elevado) */
+    /* ===== BOTÕES EM DOURADO ===== */
     .stLinkButton > a {
-        background-color: #1E40AF !important;
+        background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        font-weight: 600 !important;
-        transition: all 0.2s ease !important;
+        border: 1px solid #FBBF24 !important;
+        font-weight: 700 !important;
+        transition: all 0.3s ease !important;
         padding: 0.5rem 1rem !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
     }
 
     .stLinkButton > a:hover {
-        background-color: #3B82F6 !important;
+        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
         color: #FFFFFF !important;
-        border-color: #3B82F6 !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        border-color: #FEF08A !important;
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+        transform: scale(1.02);
     }
 
-    /* Títulos padrão em Branco */
     h1, h2, h3, h4, h5, h6 {
         color: #FFFFFF !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
-    /* 6. Estilo do Rodapé */
     .rodape-custom {
         text-align: center;
-        color: #CBD5E1 !important;
+        color: #FDE68A !important;
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2rem;
         font-weight: normal;
         line-height: 1.6;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e Instruções (CENTRALIZADOS) ---
+# --- Título e Instruções ---
 st.markdown(
     '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>',
     unsafe_allow_html=True
