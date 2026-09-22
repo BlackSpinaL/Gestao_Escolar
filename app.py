@@ -99,35 +99,31 @@ st.markdown("""
         flex-direction: column;
     }
 
-    /* ===== CARTÕES COM FUNDO ESCURO SEMI-TRANSPARENTE ===== */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+    /* ===== CARTÕES COM FUNDO ESCURO VISÍVEL ===== */
+    div[data-testid="stVerticalBlockBorderWrapper"],
+    div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
         height: 220px !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        /* Fundo escuro semi-transparente para separar o texto do mapa */
-        background-color: rgba(20, 20, 25, 0.70) !important;
-        backdrop-filter: blur(6px);
-        border-radius: 12px;
-        border: 1px solid rgba(217, 119, 6, 0.4) !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s ease;
-        padding: 1.2rem 1rem;
+        /* Força o fundo escuro nos cartões */
+        background: rgba(18, 22, 31, 0.85) !important;
+        background-color: rgba(18, 22, 31, 0.85) !important;
+        backdrop-filter: blur(8px) !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(217, 119, 6, 0.45) !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6) !important;
+        transition: all 0.3s ease !important;
+        padding: 1.2rem 1rem !important;
     }
 
     div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.35);
+        transform: translateY(-4px) !important;
+        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.4) !important;
         border-color: #F59E0B !important;
-        background-color: rgba(30, 30, 35, 0.85) !important;
-    }
-
-    div[data-testid="stVerticalBlockBorderWrapper"] > div {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: space-between;
+        background: rgba(30, 35, 45, 0.92) !important;
+        background-color: rgba(30, 35, 45, 0.92) !important;
     }
 
     /* Título do cartão */
