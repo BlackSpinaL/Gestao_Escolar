@@ -222,7 +222,7 @@ for i, (nome, info) in enumerate(apps.items()):
 st.markdown("""
 <p class='rodape-custom'>
     Desenvolvido por André Torres<br>
-    e-mail: andretorres.adm@gmail.com<br>
     para otimizar a gestão escolar.
+    e-mail: andretorres.adm@gmail.com<br>    
 </p>
 """, unsafe_allow_html=True)
