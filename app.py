@@ -10,14 +10,15 @@ def get_base64(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# --- Aplica o fundo personalizado com sobreposição (Overlay) ---
+# --- Aplica o fundo personalizado (Imagem de fundo mais visível) ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(250, 246, 239, 0.88), rgba(250, 246, 239, 0.88)), url("data:image/jpeg;base64,{bin_str}");
+            /* Reduzido de 0.88 para 0.35 para a imagem aparecer bem mais */
+            background-image: linear-gradient(rgba(250, 246, 239, 0.35), rgba(250, 246, 239, 0.35)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: top center;
             background-repeat: no-repeat;
@@ -190,7 +191,7 @@ st.markdown(
 )
 st.markdown("---")
 
-# --- Dicionário de Aplicativos (LINKS ATUALIZADOS) ---
+# --- Dicionário de Aplicativos ---
 apps = {
     "Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
