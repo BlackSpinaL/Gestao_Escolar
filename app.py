@@ -11,13 +11,16 @@ def get_base64(bin_file):
     return base64.b64encode(data).decode()
 
 # --- Aplica o fundo personalizado com sobreposição (Overlay) ---
+# --- MODIFICADO PARA ESCURECER O FUNDO EM 50% ---
 def set_background(png_file):
     try:
         bin_str = get_base64(png_file)
+        # --- LINHA ALTERADA ABAIXO ---
+        # Trocamos a sobreposição bege clara por preta (rgba(0, 0, 0)) com 50% de opacidade (0.5)
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(250, 246, 239, 0.88), rgba(250, 246, 239, 0.88)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: top center;
             background-repeat: no-repeat;
@@ -30,11 +33,13 @@ def set_background(png_file):
     except FileNotFoundError:
         return False
 
+# Verificação de imagem de fundo (fundo.jpg ou fundo.png)
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
         st.warning("⚠️ Imagem de fundo não encontrada! Verifique se o arquivo 'fundo.jpg' ou 'fundo.png' está no GitHub com o nome exato.")
 
-# --- CSS Personalizado ---
+# --- CSS Personalizado (Mantido) ---
+# --- (Opcional: Ajustar cores do texto se ficarem ilegíveis) ---
 st.markdown("""
 <style>
     /* ===== FONTE RAWLINE (CDN do Design System gov.br) ===== */
@@ -67,25 +72,26 @@ st.markdown("""
     }
 
     /* ===== TÍTULO E SUBTÍTULO CENTRALIZADOS ===== */
+    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
     .titulo-central {
         text-align: center !important;
-        color: #1E3A8A !important;
+        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 700;
         font-size: 2.4rem;
         line-height: 1.25;
         margin: 0 0 0.4rem 0;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Opcional: Remover se usar texto branco */
     }
 
     .subtitulo-central {
         text-align: center !important;
-        color: #1E3A8A !important;
+        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
         font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Opcional: Remover se usar texto branco */
     }
 
     /* 1. Força a coluna a se esticar para ocupar toda a altura disponível */
@@ -161,15 +167,17 @@ st.markdown("""
     }
 
     /* Títulos em Azul Escuro */
+    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
     h1, h2, h3, h4, h5, h6 {
-        color: #1E3A8A !important;
-        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        color: #1E3A8A !important; /* Mantenha assim, ou troque para #ffffff se necessário */
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* Opcional: Remover se usar texto branco */
     }
 
     /* 6. Estilo do Rodapé */
+    /* --- Opcional: Ajustar cor para branco/claro se o fundo ficar muito escuro --- */
     .rodape-custom {
         text-align: center;
-        color: #1E3A8A;
+        color: #1E3A8A; /* Mantenha assim, ou troque para #ffffff se necessário */
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2rem;
