@@ -125,18 +125,16 @@ st.markdown("""
         background-color: rgba(38, 45, 56, 0.95) !important;
     }
 
-    /* ===== TÍTULO DO CARTÃO (CORRIGIDO) ===== */
+    /* ===== TÍTULO DO CARTÃO (ALINHADO AO BOTÃO) ===== */
     div[data-testid="stMarkdownContainer"] {
+        display: flex !important;
+        justify-content: center !important;
         width: 100% !important;
-    }
-
-    div[data-testid="stMarkdownContainer"] > div {
-        width: 100% !important;
-        text-align: center !important;
     }
 
     .card-titulo {
-        width: 100% !important;
+        width: 380px !important;               /* mesma largura do botão */
+        max-width: 100% !important;            /* responsivo em telas pequenas */
         min-height: 75px;
         display: flex;
         align-items: center;
@@ -146,20 +144,17 @@ st.markdown("""
         font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.3;
-        margin: 0 auto 0.6rem auto;
+        margin: 0 auto 0.6rem auto !important; /* centraliza no cartão */
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     /* ===== BOTÕES EM CINZA GRAFITE / PRATA (ALTO CONTRASTE) ===== */
-
-    /* Centraliza o botão dentro do cartão */
     div[data-testid="stLinkButton"] {
         display: flex !important;
         justify-content: center !important;
         width: 100% !important;
     }
 
-    /* Estilo do botão */
     div[data-testid="stLinkButton"] > a {
         background: linear-gradient(135deg, #475569 0%, #334155 100%) !important;
         color: #FFFFFF !important;
@@ -174,7 +169,7 @@ st.markdown("""
 
         /* Largura fixa (nome maior + 1cm de cada lado) e centralização */
         width: 380px !important;
-        max-width: 100% !important; /* Para não quebrar em celulares */
+        max-width: 100% !important;
         text-align: center !important;
     }
 
