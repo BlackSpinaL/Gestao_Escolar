@@ -95,6 +95,7 @@ st.markdown("""
     a.app-card {
         display: flex !important;
         align-items: center !important;
+        justify-content: center !important;      /* ← centraliza o conteúdo */
         gap: 1rem !important;
 
         width: 100% !important;
