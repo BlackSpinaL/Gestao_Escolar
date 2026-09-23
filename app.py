@@ -95,7 +95,7 @@ st.markdown("""
     a.app-card {
         display: flex !important;
         align-items: center !important;
-        justify-content: center !important;      /* ← centraliza o conteúdo */
+        justify-content: center !important;
         gap: 1rem !important;
 
         width: 100% !important;
@@ -124,7 +124,7 @@ st.markdown("""
 
     a.app-card .check-icon {
         font-size: 1.8rem !important;
-        color: #22C55E !important;               /* ✔ verde */
+        color: #22C55E !important;
         flex-shrink: 0 !important;
         text-shadow: 0 0 8px rgba(34, 197, 94, 0.6) !important;
         transition: transform 0.3s ease !important;
@@ -135,7 +135,7 @@ st.markdown("""
     }
 
     a.app-card .app-name {
-        font-size: 1.35rem !important;           /* fonte maior */
+        font-size: 1.35rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         line-height: 1.3 !important;
@@ -184,10 +184,10 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# --- Layout em 2 colunas com cards-link clicáveis ---
+# --- Layout em 2 colunas com cards-link clicáveis (ORDEM ALFABÉTICA) ---
 cols = st.columns(2)
 
-for i, (nome, info) in enumerate(apps.items()):
+for i, (nome, info) in enumerate(sorted(apps.items())):
     with cols[i % 2]:
         st.markdown(
             f'''
