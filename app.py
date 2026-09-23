@@ -46,8 +46,7 @@ st.markdown("""
     .stApp button, .stApp input, .stApp textarea, .stApp select,
     .stApp label, .stApp table, .stApp th, .stApp td,
     [data-testid="stMarkdownContainer"],
-    [data-testid="stWidgetLabel"],
-    [data-testid="stLinkButton"] a {
+    [data-testid="stWidgetLabel"] {
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         color: #FFFFFF !important;
     }
@@ -69,7 +68,6 @@ st.markdown("""
     .titulo-central {
         text-align: center !important;
         color: #FFFFFF !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 800;
         font-size: 2.5rem;
         line-height: 1.25;
@@ -80,7 +78,6 @@ st.markdown("""
     .subtitulo-central {
         text-align: center !important;
         color: #CBD5E1 !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         font-weight: 500;
         font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
@@ -94,97 +91,54 @@ st.markdown("""
         opacity: 0.8;
     }
 
-    div[data-testid="column"] {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* ===== CARTÕES EM CINZA ESCURO / GRAFITE ===== */
-    div[data-testid="stVerticalBlockBorderWrapper"],
-    div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
-        height: 220px !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: center !important;
+    /* ===== CARD-LINK (substitui o botão) ===== */
+    a.app-card {
+        display: flex !important;
         align-items: center !important;
+        gap: 1rem !important;
+
+        width: 100% !important;
+        min-height: 90px !important;
+        padding: 1.2rem 1.5rem !important;
+        margin-bottom: 1rem !important;
 
         background: rgba(24, 28, 36, 0.88) !important;
-        background-color: rgba(24, 28, 36, 0.88) !important;
         backdrop-filter: blur(8px) !important;
-        border-radius: 12px !important;
         border: 1px solid rgba(148, 163, 184, 0.35) !important;
+        border-radius: 12px !important;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6) !important;
+
+        color: #FFFFFF !important;
+        text-decoration: none !important;
         transition: all 0.3s ease !important;
-        padding: 1.2rem 1rem !important;
     }
 
-    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    a.app-card:hover {
         transform: translateY(-4px) !important;
-        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15) !important;
         border-color: #CBD5E1 !important;
         background: rgba(38, 45, 56, 0.95) !important;
-        background-color: rgba(38, 45, 56, 0.95) !important;
+        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15) !important;
+        text-decoration: none !important;
     }
 
-    /* ===== TÍTULO DO CARTÃO — CENTRALIZADO ===== */
-    div[data-testid="stMarkdownContainer"] {
-        width: 100% !important;
-        text-align: center !important;
-        background: transparent !important;
+    a.app-card .check-icon {
+        font-size: 1.8rem !important;
+        color: #22C55E !important;               /* ✔ verde */
+        flex-shrink: 0 !important;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.6) !important;
+        transition: transform 0.3s ease !important;
     }
 
-    div[data-testid="stMarkdownContainer"] > div,
-    div[data-testid="stMarkdownContainer"] p {
-        background: transparent !important;
-        border: none !important;
-        text-align: center !important;
+    a.app-card:hover .check-icon {
+        transform: scale(1.15) !important;
     }
 
-    .card-titulo {
-        width: 100% !important;
-        min-height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center !important;
-        color: #FFFFFF !important;
-        font-size: 1.2rem;
-        font-weight: 700;
-        line-height: 1.3;
-        margin: 0 0 0.8rem 0 !important;
-        padding: 0 !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    }
-
-    /* ===== BOTÕES — CENTRALIZADOS SEM LARGURA FIXA ===== */
-    div[data-testid="stLinkButton"] {
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;
-    }
-
-    div[data-testid="stLinkButton"] > a {
-        background: linear-gradient(135deg, #475569 0%, #334155 100%) !important;
-        color: #FFFFFF !important;
-        border-radius: 8px !important;
-        border: 1px solid #94A3B8 !important;
-        font-size: 1rem !important;
+    a.app-card .app-name {
+        font-size: 1.35rem !important;           /* fonte maior */
         font-weight: 700 !important;
-        transition: all 0.3s ease !important;
-        padding: 0.55rem 1.5rem !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-
-        /* Sem largura fixa — tamanho natural do texto + padding */
-        width: auto !important;
-        text-align: center !important;
-    }
-
-    div[data-testid="stLinkButton"] > a:hover {
-        background: linear-gradient(135deg, #64748B 0%, #475569 100%) !important;
         color: #FFFFFF !important;
-        border-color: #F8FAFC !important;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+        line-height: 1.3 !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -195,7 +149,6 @@ st.markdown("""
     .rodape-custom {
         text-align: center;
         color: #94A3B8 !important;
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin-top: 2.5rem;
         font-weight: 500;
@@ -211,7 +164,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    '<p class="subtitulo-central">Selecione uma ferramenta para começar (abrirá em nova aba):</p>',
+    '<p class="subtitulo-central">Clique em um aplicativo para abrir em nova aba:</p>',
     unsafe_allow_html=True
 )
 st.markdown("---")
@@ -230,17 +183,20 @@ apps = {
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-# --- Layout em 2 colunas ---
+# --- Layout em 2 colunas com cards-link clicáveis ---
 cols = st.columns(2)
 
 for i, (nome, info) in enumerate(apps.items()):
     with cols[i % 2]:
-        with st.container(border=True):
-            st.markdown(
-                f'<div class="card-titulo">{info["icone"]} {nome}</div>',
-                unsafe_allow_html=True
-            )
-            st.link_button("Acessar Aplicativo", info['url'])
+        st.markdown(
+            f'''
+            <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
+                <span class="check-icon">✔</span>
+                <span class="app-name">{info['icone']} {nome}</span>
+            </a>
+            ''',
+            unsafe_allow_html=True
+        )
 
 # --- Rodapé ---
 st.markdown("""
