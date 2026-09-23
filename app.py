@@ -202,15 +202,17 @@ apps = {
     "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
     "Verificar Notas nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"},
     "Verificar Aulas Faltantes no Diário": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icone": "🔎"},
+    "Apuração do Resultado Final": {"url": "https://apura-resultado-final.streamlit.app/", "icone": "🏆"},
     "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
 }
 
-cols = st.columns(3)
+# --- Layout em 2 colunas ---
+cols = st.columns(2)
 
 for i, (nome, info) in enumerate(apps.items()):
-    with cols[i % 3]:
+    with cols[i % 2]:
         with st.container(border=True):
             st.markdown(
                 f'<div class="card-titulo">{info["icone"]} {nome}</div>',
