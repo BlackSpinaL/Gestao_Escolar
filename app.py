@@ -125,18 +125,28 @@ st.markdown("""
         background-color: rgba(38, 45, 56, 0.95) !important;
     }
 
-    /* Título do cartão */
+    /* ===== TÍTULO DO CARTÃO (CORRIGIDO) ===== */
+    div[data-testid="stMarkdownContainer"] {
+        width: 100% !important;
+    }
+
+    div[data-testid="stMarkdownContainer"] > div {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
     .card-titulo {
+        width: 100% !important;
         min-height: 75px;
         display: flex;
         align-items: center;
         justify-content: center;
-        text-align: center;
+        text-align: center !important;
         color: #FFFFFF !important;
         font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.3;
-        margin: 0 0 0.6rem 0;
+        margin: 0 auto 0.6rem auto;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
