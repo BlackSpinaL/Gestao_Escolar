@@ -105,7 +105,8 @@ st.markdown("""
         height: 220px !important;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center !important;
+        align-items: center !important;
 
         background: rgba(24, 28, 36, 0.88) !important;
         background-color: rgba(24, 28, 36, 0.88) !important;
@@ -125,14 +126,23 @@ st.markdown("""
         background-color: rgba(38, 45, 56, 0.95) !important;
     }
 
-    /* ===== TÍTULO DO CARTÃO (CENTRALIZADO COMO O BOTÃO) ===== */
+    /* ===== TÍTULO DO CARTÃO — CENTRALIZADO ===== */
     div[data-testid="stMarkdownContainer"] {
         width: 100% !important;
+        text-align: center !important;
+        background: transparent !important;
+    }
+
+    div[data-testid="stMarkdownContainer"] > div,
+    div[data-testid="stMarkdownContainer"] p {
+        background: transparent !important;
+        border: none !important;
+        text-align: center !important;
     }
 
     .card-titulo {
         width: 100% !important;
-        min-height: 75px;
+        min-height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -141,11 +151,12 @@ st.markdown("""
         font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.3;
-        margin: 0 0 0.6rem 0;
+        margin: 0 0 0.8rem 0 !important;
+        padding: 0 !important;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
-    /* ===== BOTÕES EM CINZA GRAFITE / PRATA (ALTO CONTRASTE) ===== */
+    /* ===== BOTÕES — CENTRALIZADOS SEM LARGURA FIXA ===== */
     div[data-testid="stLinkButton"] {
         display: flex !important;
         justify-content: center !important;
@@ -160,12 +171,12 @@ st.markdown("""
         font-size: 1rem !important;
         font-weight: 700 !important;
         transition: all 0.3s ease !important;
-        padding: 0.55rem 1rem !important;
+        padding: 0.55rem 1.5rem !important;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
-        width: 380px !important;
-        max-width: 100% !important;
+        /* Sem largura fixa — tamanho natural do texto + padding */
+        width: auto !important;
         text-align: center !important;
     }
 
