@@ -161,7 +161,7 @@ st.markdown("""
 
 # --- Título e Subtítulo ---
 st.markdown(
-    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>',
+    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar 🏫</h1>',
     unsafe_allow_html=True
 )
 st.markdown(
