@@ -140,12 +140,17 @@ st.markdown("""
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
-    .stLinkButton {
-        margin-top: auto !important;
+    /* ===== BOTÕES EM CINZA GRAFITE / PRATA (ALTO CONTRASTE) ===== */
+
+    /* Centraliza o botão dentro do cartão */
+    div[data-testid="stLinkButton"] {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
     }
 
-    /* ===== BOTÕES EM CINZA GRAFITE / PRATA (ALTO CONTRASTE) ===== */
-    .stLinkButton > a {
+    /* Estilo do botão */
+    div[data-testid="stLinkButton"] > a {
         background: linear-gradient(135deg, #475569 0%, #334155 100%) !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
@@ -156,9 +161,14 @@ st.markdown("""
         padding: 0.55rem 1rem !important;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+        /* Largura fixa (nome maior + 1cm de cada lado) e centralização */
+        width: 380px !important;
+        max-width: 100% !important; /* Para não quebrar em celulares */
+        text-align: center !important;
     }
 
-    .stLinkButton > a:hover {
+    div[data-testid="stLinkButton"] > a:hover {
         background: linear-gradient(135deg, #64748B 0%, #475569 100%) !important;
         color: #FFFFFF !important;
         border-color: #F8FAFC !important;
@@ -218,7 +228,7 @@ for i, (nome, info) in enumerate(apps.items()):
                 f'<div class="card-titulo">{info["icone"]} {nome}</div>',
                 unsafe_allow_html=True
             )
-            st.link_button("Acessar Aplicativo", info['url'], use_container_width=True)
+            st.link_button("Acessar Aplicativo", info['url'])
 
 # --- Rodapé ---
 st.markdown("""
