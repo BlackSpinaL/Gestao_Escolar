@@ -125,16 +125,13 @@ st.markdown("""
         background-color: rgba(38, 45, 56, 0.95) !important;
     }
 
-    /* ===== TÍTULO DO CARTÃO (ALINHADO AO BOTÃO) ===== */
+    /* ===== TÍTULO DO CARTÃO (CENTRALIZADO COMO O BOTÃO) ===== */
     div[data-testid="stMarkdownContainer"] {
-        display: flex !important;
-        justify-content: center !important;
         width: 100% !important;
     }
 
     .card-titulo {
-        width: 380px !important;               /* mesma largura do botão */
-        max-width: 100% !important;            /* responsivo em telas pequenas */
+        width: 100% !important;
         min-height: 75px;
         display: flex;
         align-items: center;
@@ -144,7 +141,7 @@ st.markdown("""
         font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.3;
-        margin: 0 auto 0.6rem auto !important; /* centraliza no cartão */
+        margin: 0 0 0.6rem 0;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
@@ -167,7 +164,6 @@ st.markdown("""
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
-        /* Largura fixa (nome maior + 1cm de cada lado) e centralização */
         width: 380px !important;
         max-width: 100% !important;
         text-align: center !important;
