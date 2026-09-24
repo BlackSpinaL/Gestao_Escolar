@@ -172,16 +172,16 @@ st.markdown("---")
 
 # --- Dicionário de Aplicativos ---
 apps = {
-    "Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
+    "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icone": "🏆"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
     "Bolsa Família": {"url": "https://bolsafamilia.streamlit.app/", "icone": "💰"},
+    "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
     "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
-    "Verificar Notas nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"},
-    "Verificar Aulas Faltantes no Diário": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icone": "🔎"},
-    "Apuração do Resultado Final": {"url": "https://apura-resultado-final.streamlit.app/", "icone": "🏆"},
-    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
+    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
+    "Verificar Aulas que Faltam nos Diários": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icone": "🔎"},
+    "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"}, 
 }
 
 # --- Layout em 2 colunas com cards-link clicáveis (ORDEM ALFABÉTICA) ---
