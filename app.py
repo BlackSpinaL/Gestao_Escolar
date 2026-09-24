@@ -165,7 +165,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    '<p class="subtitulo-central">Clique em um aplicativo para abrir em nova aba:</p>',
+    '<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba: ✅:</p>',
     unsafe_allow_html=True
 )
 st.markdown("---")
