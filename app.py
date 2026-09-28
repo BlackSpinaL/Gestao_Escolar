@@ -174,7 +174,7 @@ st.markdown("---")
 apps = {
     "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icone": "🏆"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
-    "Bolsa Família": {"url": "https://bolsafamilia.streamlit.app/", "icone": "💰"},
+    "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icone": "💰"},
     "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
     "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
