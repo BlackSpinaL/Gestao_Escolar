@@ -202,7 +202,7 @@ for i, (nome, info) in enumerate(sorted(apps.items())):
 # --- Rodapé ---
 st.markdown("""
 <p class='rodape-custom'>
-Aplicativos desenvolvidos para tornar a gestão escolar mais eficiente, organizada e prática. 🏫👨‍🎓🗃️📅🔎💻📱⚙️🔧🛠️🚀✅<br>
+Aplicativos que tornam a gestão escolar mais eficiente, organizada e prática. 🏫👨‍🎓🗃️📅🔎💻📱⚙️🔧🛠️🚀✅<br>
    © ® 2026 e-mail: andretorres.adm@gmail.com<br>    
 </p>
 """, unsafe_allow_html=True)
