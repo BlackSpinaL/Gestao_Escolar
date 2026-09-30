@@ -204,6 +204,6 @@ st.markdown("""
 <p class='rodape-custom'>
 <br>
 Aplicativos desenvolvidos por André Torres • Gestão escolar eficiente, organizada e prática. 🏫💻⚙️🚀<br>
-© ® 2026 e-mail: andretorres.adm@gmail.com<br>    
+© 2026 • Todos os direitos reservados • 📧 andretorres.adm@gmail.com <br>    
 </p>
 """, unsafe_allow_html=True)
