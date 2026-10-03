@@ -98,7 +98,7 @@ st.markdown(f"""
         text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
     }}
 
-    /* ===== CARD (usando container do Streamlit) ===== */
+    /* ===== CARD (container do Streamlit) ===== */
     div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] {{
         background: rgba(45, 50, 60, 0.95) !important;
         backdrop-filter: blur(10px) !important;
@@ -123,29 +123,22 @@ st.markdown(f"""
         padding: 0 !important;
     }}
 
-    /* ===== TEXTO DO CARD ===== */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] .app-name {{
+    /* ===== TEXTO DO CARD (link) ===== */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] a {{
         font-size: 1.05rem !important;
         font-weight: 500 !important;
         color: #E2E8F0 !important;
         line-height: 1.35 !important;
         text-align: left !important;
         transition: color 0.22s ease !important;
+        text-decoration: none !important;
         display: flex !important;
         align-items: center !important;
         height: 100% !important;
     }}
 
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover .app-name {{
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover a {{
         color: #FFFFFF !important;
-    }}
-
-    /* ===== LINK DO CARD ===== */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] a {{
-        text-decoration: none !important;
-        color: inherit !important;
-        display: block !important;
-        width: 100% !important;
     }}
 
     /* ===== IMAGEM DO ÍCONE ===== */
@@ -154,9 +147,9 @@ st.markdown(f"""
         height: 22px !important;
         opacity: 0.85 !important;
         transition: all 0.22s ease !important;
-        filter: invert(62%) sepia(88%) saturate(1855%) hue-rotate(190deg) brightness(101%) contrast(96%) !important;
         margin: 0 auto !important;
         display: block !important;
+        filter: invert(62%) sepia(88%) saturate(1855%) hue-rotate(190deg) brightness(101%) contrast(96%) !important;
     }}
 
     div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover img {{
@@ -186,19 +179,20 @@ st.markdown(f"""
 st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
-# --- Dicionário de Ícones (URLs diretas do Phosphor Icons via CDN) ---
+# --- Dicionário de Ícones (SVGs em Data URI - 100% offline) ---
+# Estes SVGs são do Lucide Icons (mesmo estilo do Phosphor, traço fino e moderno)
 ICONS = {
-    "trophy": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/trophy.svg",
-    "check-square": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/check-square.svg",
-    "money": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/money.svg",
-    "book-open": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/book-open.svg",
-    "calendar": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/calendar-blank.svg",
-    "chart-bar": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/chart-bar.svg",
-    "user": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/user.svg",
-    "qr-code": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/qr-code.svg",
-    "building": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/buildings.svg",
-    "search": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/magnifying-glass.svg",
-    "file-text": "https://unpkg.com/@phosphor-icons/core@2.0.3/assets/regular/file-text.svg",
+    "trophy": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNiA5SDQuNWEyLjUgMi41IDAgMCAxIDAtNUg2Ii8+PHBhdGggZD0iTTE4IDloMS41YTIuNSAyLjUgMCAwIDAgMC01SDE4Ii8+PHBhdGggZD0iTTQgMjJoMTYiLz48cGF0aCBkPSJNMTAgMTQuNjZWMTdjMCAuNTUtLjQ3Ljk4LS45NyAxLjIxQzcuODUgMTguNzUgNyAyMC4yNCA3IDIyIi8+PHBhdGggZD0iTTE0IDE0LjY2VjE3YzAgLjU1LjQ3Ljk4Ljk3IDEuMjFDMTYuMTUgMTguNzUgMTcgMjAuMjQgMTcgMjIiLz48cGF0aCBkPSJNMTggMkg2djdhNiA2IDAgMCAwIDEyIDBWMloiLz48L3N2Zz4=",
+    "check-square": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSI5IDExIDEyIDE0IDIyIDQiLz48cGF0aCBkPSJNMjEgMTJ2N2EyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMlY1YTIgMiAwIDAgMSAyLTJoMTEiLz48L3N2Zz4=",
+    "money": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTIiIHg9IjIiIHk9IjYiIHJ4PSIyIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPjxwYXRoIGQ9Ik02IDEyaC4wMU0xOCAxMmguMDEiLz48L3N2Zz4=",
+    "book-open": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAzaDZhNCA0IDAgMCAxIDQgNHYxNGEzIDMgMCAwIDAtMy0zSDJ6Ii8+PHBhdGggZD0iTTIyIDNoLTZhNCA0IDAgMCAwLTQgNHYxNGEzIDMgMCAwIDEgMy0zaDd6Ii8+PC9zdmc+",
+    "calendar": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIxNiIgeDI9IjE2IiB5MT0iMiIgeTI9IjYiLz48bGluZSB4MT0iOCIgeDI9IjgiIHkxPSIyIiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMjEiIHkxPSIxMCIgeTI9IjEwIi8+PC9zdmc+",
+    "chart-bar": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjIwIiB5Mj0iMTAiLz48bGluZSB4MT0iMTgiIHgyPSIxOCIgeTE9IjIwIiB5Mj0iNCIvPjxsaW5lIHgxPSI2IiB4Mj0iNiIgeTE9IjIwIiB5Mj0iMTYiLz48L3N2Zz4=",
+    "user": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTkgMjF2LTJhNCA0IDAgMCAwLTQtNEg5YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPg==",
+    "qr-code": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiB4PSIzIiB5PSIzIiByeD0iMSIvPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHg9IjE2IiB5PSIzIiByeD0iMSIvPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjUiIHg9IjMiIHk9IjE2IiByeD0iMSIvPjxwYXRoIGQ9Ik0yMSAxNmgtM2EyIDIgMCAwIDAtMiAydjMiLz48cGF0aCBkPSJNMjEgMjF2LjAxIi8+PHBhdGggZD0iTTEyIDd2M2EyIDIgMCAwIDEtMiAySDciLz48cGF0aCBkPSJNMyAxMmguMDEiLz48cGF0aCBkPSJNMTIgM2guMDEiLz48cGF0aCBkPSJNMTIgMTZ2LjAxIi8+PHBhdGggZD0iTTE2IDEyaDEiLz48cGF0aCBkPSJNMjEgMTJ2LjAxIi8+PHBhdGggZD0iTTEyIDIxdi0xIi8+PC9zdmc+",
+    "building": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMjAiIHg9IjQiIHk9IjIiIHJ4PSIyIiByeT0iMiIvPjxwYXRoIGQ9Ik05IDIydi00aDZ2NCIvPjxwYXRoIGQ9Ik04IDZoLjAxIi8+PHBhdGggZD0iTTE2IDZoLjAxIi8+PHBhdGggZD0iTTEyIDZoLjAxIi8+PHBhdGggZD0iTTEyIDEwaC4wMSIvPjxwYXRoIGQ9Ik0xMiAxNGguMDEiLz48cGF0aCBkPSJNMTYgMTBoLjAxIi8+PHBhdGggZD0iTTE2IDE0aC4wMSIvPjxwYXRoIGQ9Ik04IDEwaC4wMSIvPjxwYXRoIGQ9Ik04IDE0aC4wMSIvPjwvc3ZnPg==",
+    "search": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ii8+PHBhdGggZD0ibTIxIDIxLTQuMy00LjMiLz48L3N2Zz4=",
+    "file-text": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQuNSAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWNy41TDE0LjUgMnoiLz48cG9seWxpbmUgcG9pbnRzPSIxNCAyIDE0IDggMjAgOCIvPjxsaW5lIHgxPSIxNiIgeDI9IjgiIHkxPSIxMyIgeTI9IjEzIi8+PGxpbmUgeDE9IjE2IiB4Mj0iOCIgeTE9IjE3IiB5Mj0iMTciLz48bGluZSB4MT0iMTAiIHgyPSI4IiB5MT0iOSIgeTI9IjkiLz48L3N2Zz4=",
 }
 
 # --- Dicionário de Aplicativos ---
@@ -231,7 +225,7 @@ def render_card(nome, info):
     
     with col_texto:
         st.markdown(
-            f'<a href="{info["url"]}" target="_blank" rel="noopener noreferrer" class="app-name">{nome}</a>',
+            f'<a href="{info["url"]}" target="_blank" rel="noopener noreferrer">{nome}</a>',
             unsafe_allow_html=True
         )
     
