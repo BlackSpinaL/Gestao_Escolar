@@ -3,6 +3,7 @@ import base64
 
 st.set_page_config(page_title="Sistema de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
+# --- Função para carregar arquivos em Base64 ---
 def get_base64(bin_file):
     try:
         with open(bin_file, 'rb') as f:
@@ -11,6 +12,7 @@ def get_base64(bin_file):
     except FileNotFoundError:
         return None
 
+# --- Fonte Rawline ---
 def get_font_face_css():
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
@@ -26,6 +28,7 @@ def get_font_face_css():
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
     return css
 
+# --- Fundo com overlay ---
 def set_background(png_file):
     bin_str = get_base64(png_file)
     if bin_str:
@@ -50,6 +53,7 @@ if not set_background('fundo.jpg'):
 
 font_css = get_font_face_css()
 
+# --- Importa Material Symbols Rounded ---
 st.markdown("""
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 """, unsafe_allow_html=True)
@@ -108,7 +112,7 @@ st.markdown(f"""
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }}
 
-    /* ===== CARD ===== */
+    /* ===== CARD (com fonte maior) ===== */
     a.app-card {{
         display: flex !important;
         align-items: center !important;
@@ -116,8 +120,8 @@ st.markdown(f"""
         gap: 1rem !important;
 
         width: 100% !important;
-        min-height: 52px !important;
-        padding: 0.7rem 1.1rem !important;
+        min-height: 56px !important;
+        padding: 0.75rem 1.15rem !important;
         margin-bottom: 0.55rem !important;
 
         background: rgba(38, 41, 48, 0.82) !important;
@@ -140,8 +144,8 @@ st.markdown(f"""
     }}
 
     a.app-card .app-name {{
-        font-size: 0.95rem !important;
-        font-weight: 400 !important;
+        font-size: 1.05rem !important;
+        font-weight: 500 !important;
         color: #E2E8F0 !important;
         line-height: 1.35 !important;
         text-align: left !important;
@@ -155,7 +159,7 @@ st.markdown(f"""
 
     a.app-card .app-icon {{
         font-family: 'Material Symbols Rounded' !important;
-        font-size: 20px !important;
+        font-size: 22px !important;
         font-weight: 400 !important;
         color: #60A5FA !important;
         flex-shrink: 0 !important;
@@ -205,16 +209,12 @@ apps = {
     "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icon": "description"},
 }
 
-# ===== ORDENAÇÃO ALFABÉTICA EM COLUNA (column-major) =====
-# 1. Ordena alfabeticamente
-# 2. Divide a lista ao meio (coluna 1 pega a primeira metade, coluna 2 a segunda)
-# 3. Renderiza cada coluna de cima para baixo
+# --- Ordenação alfabética em coluna (column-major) ---
+itens_ordenados = sorted(apps.items())
+meio = (len(itens_ordenados) + 1) // 2
 
-itens_ordenados = sorted(apps.items())          # ordem alfabética
-meio = (len(itens_ordenados) + 1) // 2          # arredonda pra cima (coluna 1 fica maior)
-
-coluna_1 = itens_ordenados[:meio]               # primeira metade
-coluna_2 = itens_ordenados[meio:]               # segunda metade
+coluna_1 = itens_ordenados[:meio]
+coluna_2 = itens_ordenados[meio:]
 
 col_esq, col_dir = st.columns(2)
 
