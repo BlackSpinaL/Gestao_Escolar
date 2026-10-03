@@ -98,8 +98,9 @@ st.markdown(f"""
         text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
     }}
 
-    /* ===== CARD (container do Streamlit) ===== */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] {{
+    /* ===== CARD (Container do Streamlit) ===== */
+    /* Este seletor encontra o bloco horizontal que envolve cada card */
+    div[data-testid="stHorizontalBlock"] {{
         background: rgba(45, 50, 60, 0.95) !important;
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(203, 213, 225, 0.2) !important;
@@ -111,20 +112,20 @@ st.markdown(f"""
         align-items: center !important;
     }}
 
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover {{
+    div[data-testid="stHorizontalBlock"]:hover {{
         background: rgba(60, 65, 75, 1) !important;
         border-color: rgba(96, 165, 250, 0.8) !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3) !important;
     }}
 
-    /* Remove o padding padrão das colunas */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {{
+    /* Remove o padding padrão das colunas dentro dos cards */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {{
         padding: 0 !important;
     }}
 
     /* ===== TEXTO DO CARD (link) ===== */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] a {{
+    div[data-testid="stHorizontalBlock"] a {{
         font-size: 1.05rem !important;
         font-weight: 500 !important;
         color: #E2E8F0 !important;
@@ -137,25 +138,23 @@ st.markdown(f"""
         height: 100% !important;
     }}
 
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover a {{
+    div[data-testid="stHorizontalBlock"]:hover a {{
         color: #FFFFFF !important;
     }}
 
     /* ===== IMAGEM DO ÍCONE ===== */
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] img {{
+    div[data-testid="stHorizontalBlock"] img {{
         width: 22px !important;
         height: 22px !important;
         opacity: 0.85 !important;
         transition: all 0.22s ease !important;
         margin: 0 auto !important;
         display: block !important;
-        filter: invert(62%) sepia(88%) saturate(1855%) hue-rotate(190deg) brightness(101%) contrast(96%) !important;
     }}
 
-    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover img {{
+    div[data-testid="stHorizontalBlock"]:hover img {{
         opacity: 1 !important;
         transform: translateX(3px) !important;
-        filter: invert(75%) sepia(60%) saturate(1200%) hue-rotate(190deg) brightness(110%) contrast(100%) !important;
     }}
 
     .rodape-minimo {{
@@ -179,8 +178,7 @@ st.markdown(f"""
 st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
-# --- Dicionário de Ícones (SVGs em Data URI - 100% offline) ---
-# Estes SVGs são do Lucide Icons (mesmo estilo do Phosphor, traço fino e moderno)
+# --- Dicionário de Ícones (SVGs em Data URI - 100% offline e coloridos) ---
 ICONS = {
     "trophy": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNiA5SDQuNWEyLjUgMi41IDAgMCAxIDAtNUg2Ii8+PHBhdGggZD0iTTE4IDloMS41YTIuNSAyLjUgMCAwIDAgMC01SDE4Ii8+PHBhdGggZD0iTTQgMjJoMTYiLz48cGF0aCBkPSJNMTAgMTQuNjZWMTdjMCAuNTUtLjQ3Ljk4LS45NyAxLjIxQzcuODUgMTguNzUgNyAyMC4yNCA3IDIyIi8+PHBhdGggZD0iTTE0IDE0LjY2VjE3YzAgLjU1LjQ3Ljk4Ljk3IDEuMjFDMTYuMTUgMTguNzUgMTcgMjAuMjQgMTcgMjIiLz48cGF0aCBkPSJNMTggMkg2djdhNiA2IDAgMCAwIDEyIDBWMloiLz48L3N2Zz4=",
     "check-square": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSI5IDExIDEyIDE0IDIyIDQiLz48cGF0aCBkPSJNMjEgMTJ2N2EyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMlY1YTIgMiAwIDAgMSAyLTJoMTEiLz48L3N2Zz4=",
