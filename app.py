@@ -98,62 +98,68 @@ st.markdown(f"""
         text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
     }}
 
-    /* ===== CARD ===== */
-    a.app-card {{
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 1rem !important;
-
-        width: 100% !important;
-        min-height: 56px !important;
-        padding: 0.75rem 1.15rem !important;
-        margin-bottom: 0.55rem !important;
-
-        background: rgba(45, 50, 60, 0.95) !important; 
+    /* ===== CARD (usando container do Streamlit) ===== */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] {{
+        background: rgba(45, 50, 60, 0.95) !important;
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(203, 213, 225, 0.2) !important;
         border-radius: 10px !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
-
-        color: #E2E8F0 !important;
-        text-decoration: none !important;
+        padding: 0.75rem 1.15rem !important;
+        margin-bottom: 0.55rem !important;
         transition: all 0.22s ease !important;
+        align-items: center !important;
     }}
 
-    a.app-card:hover {{
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover {{
         background: rgba(60, 65, 75, 1) !important;
         border-color: rgba(96, 165, 250, 0.8) !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3) !important;
-        text-decoration: none !important;
     }}
 
-    a.app-card .app-name {{
+    /* Remove o padding padrão das colunas */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {{
+        padding: 0 !important;
+    }}
+
+    /* ===== TEXTO DO CARD ===== */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] .app-name {{
         font-size: 1.05rem !important;
         font-weight: 500 !important;
         color: #E2E8F0 !important;
         line-height: 1.35 !important;
         text-align: left !important;
-        flex: 1 !important;
         transition: color 0.22s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        height: 100% !important;
     }}
 
-    a.app-card:hover .app-name {{
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover .app-name {{
         color: #FFFFFF !important;
     }}
 
-    /* ===== ÍCONE (Imagem SVG via CDN) ===== */
-    a.app-card img.app-icon {{
-        width: 22px !important;
-        height: 22px !important;
-        flex-shrink: 0 !important;
-        transition: all 0.22s ease !important;
-        opacity: 0.85 !important;
-        filter: invert(62%) sepia(88%) saturate(1855%) hue-rotate(190deg) brightness(101%) contrast(96%) !important;
+    /* ===== LINK DO CARD ===== */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] a {{
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block !important;
+        width: 100% !important;
     }}
 
-    a.app-card:hover img.app-icon {{
+    /* ===== IMAGEM DO ÍCONE ===== */
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"] img {{
+        width: 22px !important;
+        height: 22px !important;
+        opacity: 0.85 !important;
+        transition: all 0.22s ease !important;
+        filter: invert(62%) sepia(88%) saturate(1855%) hue-rotate(190deg) brightness(101%) contrast(96%) !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }}
+
+    div[data-testid="stVerticalBlock"] > div[data-testid="stHorizontalBlock"]:hover img {{
         opacity: 1 !important;
         transform: translateX(3px) !important;
         filter: invert(75%) sepia(60%) saturate(1200%) hue-rotate(190deg) brightness(110%) contrast(100%) !important;
@@ -219,29 +225,26 @@ coluna_2 = itens_ordenados[meio:]
 
 col_esq, col_dir = st.columns(2)
 
-with col_esq:
-    for nome, info in coluna_1:
+def render_card(nome, info):
+    """Renderiza um card usando colunas do Streamlit."""
+    col_texto, col_icone = st.columns([5, 1])
+    
+    with col_texto:
         st.markdown(
-            f'''
-            <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
-                <span class="app-name">{nome}</span>
-                <img class="app-icon" src="{info['icon']}" alt="ícone" />
-            </a>
-            ''',
+            f'<a href="{info["url"]}" target="_blank" rel="noopener noreferrer" class="app-name">{nome}</a>',
             unsafe_allow_html=True
         )
+    
+    with col_icone:
+        st.image(info["icon"], width=22)
+
+with col_esq:
+    for nome, info in coluna_1:
+        render_card(nome, info)
 
 with col_dir:
     for nome, info in coluna_2:
-        st.markdown(
-            f'''
-            <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
-                <span class="app-name">{nome}</span>
-                <img class="app-icon" src="{info['icon']}" alt="ícone" />
-            </a>
-            ''',
-            unsafe_allow_html=True
-        )
+        render_card(nome, info)
 
 # --- Rodapé ---
 st.markdown("""
