@@ -162,17 +162,26 @@ st.markdown(f"""
         text-decoration: none !important;
     }}
 
-    /* Caixa de instrução no topo */
+    /* ===== Caixa de instrução DESTACADA ===== */
     .fake-search {{
         display: block;
         width: 100%;
-        padding: 0.6rem 0.9rem;
+        padding: 0.7rem 0.9rem;
         margin-bottom: 1rem;
-        background: rgba(60, 64, 72, 0.85);
+
+        /* Fundo azul-escuro destacado */
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(59, 130, 246, 0.25)) !important;
+        border: 1px solid rgba(96, 165, 250, 0.6) !important;
+        border-left: 4px solid #3B82F6 !important; /* faixa azul à esquerda */
         border-radius: 8px;
-        color: #CBD5E1;
+
+        color: #DBEAFE !important;
         font-size: 0.95rem;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        font-weight: 600 !important;
+        letter-spacing: 0.2px;
+
+        box-shadow: 0 0 12px rgba(59, 130, 246, 0.35) !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
     }}
 
     /* Rodapé */
@@ -191,7 +200,7 @@ st.markdown(f"""
 # --- Título compacto à esquerda ---
 st.markdown('<h1 class="titulo-esquerda">🏫 Gerenciamento Escolar</h1>', unsafe_allow_html=True)
 
-# --- Caixa com a frase de instrução ---
+# --- Caixa com a frase de instrução DESTACADA ---
 st.markdown('<div class="fake-search">📋 Selecione um dos aplicativos abaixo</div>', unsafe_allow_html=True)
 
 # --- Dicionário de Aplicativos ---
