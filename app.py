@@ -3,7 +3,6 @@ import base64
 
 st.set_page_config(page_title="Sistema de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- Função para carregar arquivos em Base64 ---
 def get_base64(bin_file):
     try:
         with open(bin_file, 'rb') as f:
@@ -12,7 +11,6 @@ def get_base64(bin_file):
     except FileNotFoundError:
         return None
 
-# --- Fonte Rawline ---
 def get_font_face_css():
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
@@ -28,7 +26,6 @@ def get_font_face_css():
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
     return css
 
-# --- Fundo com overlay ---
 def set_background(png_file):
     bin_str = get_base64(png_file)
     if bin_str:
@@ -53,7 +50,6 @@ if not set_background('fundo.jpg'):
 
 font_css = get_font_face_css()
 
-# --- Importa Material Symbols Rounded ---
 st.markdown("""
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 """, unsafe_allow_html=True)
@@ -81,38 +77,40 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
+    /* ===== Container mais estreito (ajuste 1) ===== */
     .block-container {{
-        max-width: 1100px !important;
+        max-width: 980px !important;
         margin: 0 auto !important;
-        padding-top: 2rem;
+        padding-top: 1.8rem;
         padding-bottom: 2rem;
         padding-left: 2rem;
         padding-right: 2rem;
     }}
 
-    /* ===== TÍTULO CENTRALIZADO ===== */
+    /* ===== TÍTULO (emoji só na frente — ajuste 2) ===== */
     .titulo-central {{
         text-align: center !important;
         color: #F1F5F9 !important;
         font-weight: 700;
-        font-size: 1.9rem;
+        font-size: 1.75rem;
         line-height: 1.25;
-        margin: 0 0 0.4rem 0;
+        margin: 0 0 0.5rem 0;
         letter-spacing: 0.3px;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
     }}
 
+    /* ===== Subtítulo com mais respiro (ajuste 3) ===== */
     .subtitulo-central {{
         text-align: center !important;
         color: #94A3B8 !important;
         font-weight: 400;
         font-size: 0.85rem;
-        margin: 0 0 1.8rem 0;
+        margin: 0 0 2.4rem 0;
         letter-spacing: 0.2px;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }}
 
-    /* ===== CARD (com fonte maior) ===== */
+    /* ===== CARD ===== */
     a.app-card {{
         display: flex !important;
         align-items: center !important;
@@ -190,8 +188,8 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e subtítulo ---
-st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar 🏫</h1>', unsafe_allow_html=True)
+# --- Título (emoji só na frente) ---
+st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
 # --- Dicionário de Aplicativos ---
@@ -209,7 +207,7 @@ apps = {
     "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icon": "description"},
 }
 
-# --- Ordenação alfabética em coluna (column-major) ---
+# --- Ordenação alfabética em coluna ---
 itens_ordenados = sorted(apps.items())
 meio = (len(itens_ordenados) + 1) // 2
 
