@@ -1,8 +1,10 @@
 import streamlit as st
 import base64
 
+# Configuração da página (Layout wide)
 st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
+# --- Função para carregar arquivos em Base64 ---
 def get_base64(bin_file):
     try:
         with open(bin_file, 'rb') as f:
@@ -11,6 +13,7 @@ def get_base64(bin_file):
     except FileNotFoundError:
         return None
 
+# --- Função para carregar o CSS da Fonte Rawline (Arquivos TTF locais) ---
 def get_font_face_css():
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
@@ -26,6 +29,7 @@ def get_font_face_css():
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
     return css
 
+# --- Aplica o fundo personalizado com sobreposição ---
 def set_background(png_file):
     bin_str = get_base64(png_file)
     if bin_str:
@@ -73,7 +77,7 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* Container principal: ocupa bem mais a tela, alinhado à esquerda */
+    /* Container principal */
     .block-container {{
         max-width: 950px !important;
         margin-left: 0 !important;
@@ -84,14 +88,24 @@ st.markdown(f"""
         padding-right: 1.5rem;
     }}
 
+    /* ===== TÍTULO compacto (ajuste 3) ===== */
     .titulo-esquerda {{
         text-align: left !important;
         color: #FFFFFF !important;
         font-weight: 700;
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         line-height: 1.3;
-        margin: 0 0 0.6rem 0;
+        margin: 0 0 0.15rem 0;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    }}
+
+    .subtitulo-esquerda {{
+        text-align: left !important;
+        color: #94A3B8 !important;
+        font-weight: 400;
+        font-size: 0.8rem;
+        margin: 0 0 0.9rem 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
     }}
 
     hr {{
@@ -100,6 +114,7 @@ st.markdown(f"""
         margin: 0.8rem 0 !important;
     }}
 
+    /* ===== ITEM DA LISTA ===== */
     a.app-item {{
         display: block !important;
         width: 100% !important;
@@ -124,19 +139,24 @@ st.markdown(f"""
         text-decoration: none !important;
     }}
 
+    /* ===== Caixa de instrução DESTACADA e COMPACTA (ajuste 2) ===== */
     .fake-search {{
         display: block;
+        max-width: 460px;   /* compacta, não estica */
         width: 100%;
         padding: 0.7rem 0.9rem;
-        margin-bottom: 1.2rem;
+        margin: 0 0 1.2rem 0;
+
         background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(59, 130, 246, 0.25)) !important;
         border: 1px solid rgba(96, 165, 250, 0.6) !important;
         border-left: 4px solid #3B82F6 !important;
         border-radius: 8px;
+
         color: #DBEAFE !important;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 600 !important;
         letter-spacing: 0.2px;
+
         box-shadow: 0 0 12px rgba(59, 130, 246, 0.35) !important;
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
     }}
@@ -153,9 +173,14 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
+# --- Título e subtítulo (ajuste 3) ---
 st.markdown('<h1 class="titulo-esquerda">🏫 Gerenciamento Escolar</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitulo-esquerda">Painel de atalhos • Uso interno</p>', unsafe_allow_html=True)
+
+# --- Caixa de instrução (ajuste 2 - compacta) ---
 st.markdown('<div class="fake-search">📋 Selecione um dos aplicativos abaixo</div>', unsafe_allow_html=True)
 
+# --- Dicionário de Aplicativos ---
 apps = {
     "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/"},
@@ -170,19 +195,44 @@ apps = {
     "Verificar Notas": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/"},
 }
 
-# --- Layout em 2 colunas, coladas à esquerda ---
+# --- Listas controladas manualmente (ajuste 1) ---
+# Coluna esquerda: apps gerais
+coluna_esquerda = [
+    "Apura Resultado",
+    "Avaliação Especial",
+    "Bolsa Família",
+    "Contagem de Aulas",
+    "Criação Horário",
+    "Pontuação SGE",
+]
+
+# Coluna direita: Solicitação de Vagas (agrupadas) + Verificações
+coluna_direita = [
+    "Solicitação Vagas - Participante",
+    "Solicitação Vagas - QR",
+    "Solicitação Vagas - Secretaria",
+    "Verificar Aulas Faltam",
+    "Verificar Notas",
+]
+
+# --- Renderização em 2 colunas ---
 col_esq, col_dir = st.columns([1, 1])
 
-itens = sorted(apps.items())
-
-for i, (nome, info) in enumerate(itens):
-    coluna = col_esq if i % 2 == 0 else col_dir
-    with coluna:
+with col_esq:
+    for nome in coluna_esquerda:
         st.markdown(
-            f'<a class="app-item" href="{info["url"]}" target="_blank" rel="noopener noreferrer">{nome}</a>',
+            f'<a class="app-item" href="{apps[nome]["url"]}" target="_blank" rel="noopener noreferrer">{nome}</a>',
             unsafe_allow_html=True
         )
 
+with col_dir:
+    for nome in coluna_direita:
+        st.markdown(
+            f'<a class="app-item" href="{apps[nome]["url"]}" target="_blank" rel="noopener noreferrer">{nome}</a>',
+            unsafe_allow_html=True
+        )
+
+# --- Rodapé ---
 st.markdown("""
 <p class='rodape-custom'>
 <br>
