@@ -1,8 +1,7 @@
 import streamlit as st
 import base64
 
-# Configuração da página (Layout wide)
-st.set_page_config(page_title="Painel de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Sistema de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
 # --- Função para carregar arquivos em Base64 ---
 def get_base64(bin_file):
@@ -13,56 +12,30 @@ def get_base64(bin_file):
     except FileNotFoundError:
         return None
 
-# --- Função para carregar o CSS da Fonte Rawline (Arquivos TTF locais) ---
+# --- Fonte Rawline ---
 def get_font_face_css():
-    # Tenta carregar os arquivos TTF específicos da sua pasta
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
     font_700 = get_base64('rawline-700.ttf')
-    
     css = ""
     if font_300:
-        css += f"""
-        @font-face {{
-            font-family: 'Rawline';
-            src: url('data:font/ttf;base64,{font_300}') format('truetype');
-            font-weight: 300;
-            font-style: normal;
-        }}
-        """
+        css += f"@font-face {{ font-family: 'Rawline'; src: url('data:font/ttf;base64,{font_300}') format('truetype'); font-weight: 300; }}"
     if font_400:
-        css += f"""
-        @font-face {{
-            font-family: 'Rawline';
-            src: url('data:font/ttf;base64,{font_400}') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }}
-        """
+        css += f"@font-face {{ font-family: 'Rawline'; src: url('data:font/ttf;base64,{font_400}') format('truetype'); font-weight: 400; }}"
     if font_700:
-        css += f"""
-        @font-face {{
-            font-family: 'Rawline';
-            src: url('data:font/ttf;base64,{font_700}') format('truetype');
-            font-weight: 700;
-            font-style: normal;
-        }}
-        """
-    
-    # Se não encontrou nenhum arquivo local, usa o CDN do governo como fallback
+        css += f"@font-face {{ font-family: 'Rawline'; src: url('data:font/ttf;base64,{font_700}') format('truetype'); font-weight: 700; }}"
     if not css:
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
-    
     return css
 
-# --- Aplica o fundo personalizado com sobreposição ---
+# --- Fundo com overlay mais escuro ---
 def set_background(png_file):
     bin_str = get_base64(png_file)
     if bin_str:
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -76,177 +49,215 @@ def set_background(png_file):
 
 if not set_background('fundo.jpg'):
     if not set_background('fundo.png'):
-        st.warning("⚠️ Imagem de fundo não encontrada! Verifique se 'fundo.jpg' ou 'fundo.png' está na pasta do projeto.")
+        st.warning("⚠️ Imagem de fundo não encontrada!")
 
-# --- Carrega o CSS da fonte ---
 font_css = get_font_face_css()
 
-# --- CSS Personalizado Adaptado para Tema Cinza/Grafite ---
+# --- Importa Material Symbols Rounded (fonte de ícones moderna) ---
+st.markdown("""
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+""", unsafe_allow_html=True)
+
 st.markdown(f"""
 <style>
-    /* ===== FONTE RAWLINE ===== */
     {font_css}
 
-    /* Força a fonte Rawline em todos os elementos do Streamlit */
     html, body, .stApp, .stApp * {{
-        font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        font-family: 'Rawline', 'Segoe UI', Tahoma, sans-serif !important;
     }}
 
-    /* Restaura a fonte dos ícones do Streamlit (Material Symbols) para não quebrar emojis */
+    /* Preserva a fonte Material Symbols nos ícones */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"],
-    .material-icons {{
+    .material-icons,
+    .msr {{
         font-family: 'Material Symbols Rounded', 'Material Icons' !important;
     }}
 
-    /* Ajuste de cor do texto para garantir legibilidade no fundo escuro */
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
     .stApp p, .stApp span, .stApp div, .stApp a, .stApp li,
-    .stApp label, .stApp table, .stApp th, .stApp td,
-    [data-testid="stMarkdownContainer"],
+    .stApp label, [data-testid="stMarkdownContainer"],
     [data-testid="stWidgetLabel"] {{
         color: #FFFFFF !important;
     }}
 
     /* Container principal */
     .block-container {{
-        max-width: 1400px;
-        padding-top: 2.5rem;
-        padding-bottom: 2.5rem;
+        max-width: 1100px !important;
+        margin: 0 auto !important;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }}
 
-    /* ===== TÍTULO E SUBTÍTULO ===== */
+    /* ===== TÍTULO CENTRALIZADO (como na imagem atual) ===== */
     .titulo-central {{
         text-align: center !important;
-        color: #FFFFFF !important;
-        font-weight: 700; /* Usando o peso 700 que você tem */
-        font-size: 2.5rem;
+        color: #F1F5F9 !important;
+        font-weight: 700;
+        font-size: 1.9rem;
         line-height: 1.25;
         margin: 0 0 0.4rem 0;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        letter-spacing: 0.3px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
     }}
 
     .subtitulo-central {{
         text-align: center !important;
-        color: #CBD5E1 !important;
-        font-weight: 400; /* Usando o peso 400 que você tem */
-        font-size: 1.1rem;
-        margin: 0 0 1.2rem 0;
+        color: #94A3B8 !important;
+        font-weight: 400;
+        font-size: 0.85rem;
+        margin: 0 0 1.8rem 0;
+        letter-spacing: 0.2px;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }}
 
-    /* Linha divisória em cinza prateado */
-    hr {{
-        border-color: #64748B !important;
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-        opacity: 0.8;
-    }}
-
-    /* ===== CARD-LINK (substitui o botão) ===== */
+    /* ===== CARD (item da lista) ===== */
     a.app-card {{
         display: flex !important;
         align-items: center !important;
-        justify-content: center !important;
+        justify-content: space-between !important;
         gap: 1rem !important;
 
         width: 100% !important;
-        min-height: 90px !important;
-        padding: 1.2rem 1.5rem !important;
-        margin-bottom: 1rem !important;
+        min-height: 52px !important;
+        padding: 0.7rem 1.1rem !important;
+        margin-bottom: 0.55rem !important;
 
-        background: rgba(24, 28, 36, 0.88) !important;
-        backdrop-filter: blur(8px) !important;
-        border: 1px solid rgba(148, 163, 184, 0.35) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6) !important;
+        /* Paleta moderna: cinza grafite com transparência */
+        background: rgba(38, 41, 48, 0.82) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(203, 213, 225, 0.15) !important;
+        border-radius: 10px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
 
-        color: #FFFFFF !important;
+        color: #E2E8F0 !important;
         text-decoration: none !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.22s ease !important;
     }}
 
     a.app-card:hover {{
-        transform: translateY(-4px) !important;
-        border-color: #CBD5E1 !important;
-        background: rgba(38, 45, 56, 0.95) !important;
-        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15) !important;
+        background: rgba(51, 55, 64, 0.95) !important;
+        border-color: rgba(96, 165, 250, 0.45) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.18) !important;
         text-decoration: none !important;
     }}
 
-    a.app-card .check-icon {{
-        font-size: 1.8rem !important;
-        color: #22C55E !important;
-        flex-shrink: 0 !important;
-        text-shadow: 0 0 8px rgba(34, 197, 94, 0.6) !important;
-        transition: transform 0.3s ease !important;
-    }}
-
-    a.app-card:hover .check-icon {{
-        transform: scale(1.15) !important;
-    }}
-
+    /* Nome do app */
     a.app-card .app-name {{
-        font-size: 1.35rem !important;
-        font-weight: 700 !important;
-        color: #FFFFFF !important;
-        line-height: 1.3 !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+        font-size: 0.95rem !important;
+        font-weight: 400 !important;
+        color: #E2E8F0 !important;
+        line-height: 1.35 !important;
+        text-align: left !important;
+        flex: 1 !important;
+        transition: color 0.22s ease !important;
     }}
 
-    h1, h2, h3, h4, h5, h6 {{
+    a.app-card:hover .app-name {{
         color: #FFFFFF !important;
     }}
 
-    /* Rodapé */
-    .rodape-custom {{
+    /* Ícone moderno à direita */
+    a.app-card .app-icon {{
+        font-family: 'Material Symbols Rounded' !important;
+        font-size: 20px !important;
+        font-weight: 400 !important;
+        color: #60A5FA !important;
+        flex-shrink: 0 !important;
+        transition: all 0.22s ease !important;
+        opacity: 0.85 !important;
+    }}
+
+    a.app-card:hover .app-icon {{
+        color: #93C5FD !important;
+        opacity: 1 !important;
+        transform: translateX(3px) !important;
+    }}
+
+    /* Rodapé discreto */
+    .rodape-minimo {{
         text-align: center;
-        color: #94A3B8 !important;
-        font-size: 14px;
+        color: #64748B !important;
+        font-size: 10.5px;
         margin-top: 2.5rem;
-        font-weight: 400;
+        letter-spacing: 0.3px;
         line-height: 1.6;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+    }}
+
+    .rodape-minimo strong {{
+        color: #94A3B8 !important;
+        font-weight: 500;
     }}
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e Subtítulo ---
-st.markdown(
-    '<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar 🏫</h1>',
-    unsafe_allow_html=True
-)
-st.markdown(
-    '<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba: ✅</p>',
-    unsafe_allow_html=True
-)
-st.markdown("---")
+# --- Título e subtítulo centralizados ---
+st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar 🏫</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
-# --- Dicionário de Aplicativos ---
+# --- Dicionário de Aplicativos (com ícones modernos Material Symbols) ---
+# Referência de ícones: https://fonts.google.com/icons
 apps = {
-    "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icone": "🏆"},
-    "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
-    "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icone": "💰"},
-    "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
-    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icone": "📅"}, # NOVO APP AQUI
-    "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
-    "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
-    "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
-    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icone": "🏢"},
-    "Verificar Aulas que Faltam nos Diários": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icone": "🔎"},
-    "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"}, 
+    "Apura Resultado": {
+        "url": "https://apura-resultado-final.streamlit.app/",
+        "icon": "emoji_events",       # troféu
+    },
+    "Avaliação Especial": {
+        "url": "https://avaliacaoespecialcontagem.streamlit.app/",
+        "icon": "fact_check",         # checklist
+    },
+    "Bolsa Família": {
+        "url": "https://bolsafamilia2.streamlit.app/",
+        "icon": "payments",           # pagamento
+    },
+    "Contagem de Aulas no Siea": {
+        "url": "https://contagemdeaulasnosiea.streamlit.app/",
+        "icon": "menu_book",          # livro aberto
+    },
+    "Criação de Horário Escolar": {
+        "url": "https://sistemadecriacaodehorarioescolar.streamlit.app/",
+        "icon": "calendar_month",     # calendário
+    },
+    "Pontuação no SGE": {
+        "url": "https://conceitosnosge.streamlit.app/",
+        "icon": "bar_chart",          # gráfico
+    },
+    "Solicitação de Vagas - Participante": {
+        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html",
+        "icon": "person",             # pessoa
+    },
+    "Solicitação de Vagas - QR Code": {
+        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html",
+        "icon": "qr_code_2",          # qrcode
+    },
+    "Solicitação de Vagas - Secretaria": {
+        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html",
+        "icon": "apartment",          # prédio
+    },
+    "Verificar Aulas que Faltam nos Diários": {
+        "url": "https://aulasprevistasxaulasrealizadas.streamlit.app/",
+        "icon": "search",             # lupa
+    },
+    "Verificar Notas em Branco nos Diários": {
+        "url": "https://verificarnotasembranconosdiarios.streamlit.app/",
+        "icon": "description",        # documento
+    },
 }
 
-# --- Layout em 2 colunas com cards-link clicáveis (ORDEM ALFABÉTICA) ---
+# --- Layout em 2 colunas ---
 cols = st.columns(2)
-
 for i, (nome, info) in enumerate(sorted(apps.items())):
     with cols[i % 2]:
         st.markdown(
             f'''
             <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
-                <span class="check-icon">✔</span>
-                <span class="app-name">{info['icone']} {nome}</span>
+                <span class="app-name">{nome}</span>
+                <span class="app-icon">{info['icon']}</span>
             </a>
             ''',
             unsafe_allow_html=True
@@ -254,9 +265,8 @@ for i, (nome, info) in enumerate(sorted(apps.items())):
 
 # --- Rodapé ---
 st.markdown("""
-<p class='rodape-custom'>
-<br>
-Aplicativos desenvolvidos por André Torres • Gestão escolar eficiente, organizada e prática. 🏫💻⚙️🚀<br>
-© 2026 • Todos os direitos reservados • 📧 andretorres.adm@gmail.com <br>    
+<p class='rodape-minimo'>
+Aplicativos desenvolvidos por <strong>André Torres</strong> · Gestão escolar eficiente, organizada e prática<br>
+© 2026 · Todos os direitos reservados · andretorres.adm@gmail.com
 </p>
 """, unsafe_allow_html=True)
