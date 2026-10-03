@@ -50,8 +50,9 @@ if not set_background('fundo.jpg'):
 
 font_css = get_font_face_css()
 
+# --- CDN do Phosphor Icons (Moderno) ---
 st.markdown("""
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
 """, unsafe_allow_html=True)
 
 st.markdown(f"""
@@ -62,12 +63,9 @@ st.markdown(f"""
         font-family: 'Rawline', 'Segoe UI', Tahoma, sans-serif !important;
     }}
 
-    [data-testid="stIconMaterial"],
-    .material-symbols-rounded,
-    span[class*="material-symbols"],
-    .material-icons,
-    .msr {{
-        font-family: 'Material Symbols Rounded', 'Material Icons' !important;
+    /* Configuração da fonte dos ícones Phosphor */
+    .ph, .ph-bold, .ph-fill {{
+        font-family: 'Phosphor' !important;
     }}
 
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
@@ -87,24 +85,24 @@ st.markdown(f"""
         padding-right: 2rem;
     }}
 
-    /* ===== TÍTULO (emoji só na frente) ===== */
+    /* ===== TÍTULO ===== */
     .titulo-central {{
         text-align: center !important;
-        color: #FFFFFF !important; /* Branco puro para máximo contraste */
+        color: #FFFFFF !important;
         font-weight: 700;
         font-size: 1.75rem;
         line-height: 1.25;
         margin: 0 0 0.5rem 0;
         letter-spacing: 0.3px;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 1); /* Sombra mais forte */
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 1);
     }}
 
-    /* ===== Subtítulo com mais respiro ===== */
+    /* ===== Subtítulo ===== */
     .subtitulo-central {{
         text-align: center !important;
-        color: #CBD5E1 !important; /* Cinza mais claro */
+        color: #CBD5E1 !important;
         font-weight: 400;
-        font-size: 0.9rem; /* Aumentado para melhor leitura */
+        font-size: 0.9rem;
         margin: 0 0 2.4rem 0;
         letter-spacing: 0.2px;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
@@ -122,12 +120,11 @@ st.markdown(f"""
         padding: 0.75rem 1.15rem !important;
         margin-bottom: 0.55rem !important;
 
-        /* AJUSTE PRINCIPAL: Fundo mais opaco e um pouco mais claro */
         background: rgba(45, 50, 60, 0.95) !important; 
         backdrop-filter: blur(10px) !important;
-        border: 1px solid rgba(203, 213, 225, 0.2) !important; /* Borda mais visível */
+        border: 1px solid rgba(203, 213, 225, 0.2) !important;
         border-radius: 10px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* Sombra mais forte */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
 
         color: #E2E8F0 !important;
         text-decoration: none !important;
@@ -135,8 +132,8 @@ st.markdown(f"""
     }}
 
     a.app-card:hover {{
-        background: rgba(60, 65, 75, 1) !important; /* Mais claro no hover */
-        border-color: rgba(96, 165, 250, 0.8) !important; /* Borda azul mais visível */
+        background: rgba(60, 65, 75, 1) !important;
+        border-color: rgba(96, 165, 250, 0.8) !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3) !important;
         text-decoration: none !important;
@@ -156,8 +153,8 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    a.app-card .app-icon {{
-        font-family: 'Material Symbols Rounded' !important;
+    /* ===== ÍCONE PHOSPHOR ===== */
+    a.app-card .ph {{
         font-size: 22px !important;
         font-weight: 400 !important;
         color: #60A5FA !important;
@@ -166,7 +163,7 @@ st.markdown(f"""
         opacity: 0.85 !important;
     }}
 
-    a.app-card:hover .app-icon {{
+    a.app-card:hover .ph {{
         color: #93C5FD !important;
         opacity: 1 !important;
         transform: translateX(3px) !important;
@@ -174,8 +171,8 @@ st.markdown(f"""
 
     .rodape-minimo {{
         text-align: center;
-        color: #94A3B8 !important; /* Um pouco mais claro */
-        font-size: 12px; /* Aumentado para melhor legibilidade */
+        color: #94A3B8 !important;
+        font-size: 12px;
         margin-top: 2.5rem;
         letter-spacing: 0.3px;
         line-height: 1.6;
@@ -189,23 +186,23 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título (emoji só na frente) ---
+# --- Título ---
 st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
-# --- Dicionário de Aplicativos ---
+# --- Dicionário de Aplicativos com Ícones Phosphor ---
 apps = {
-    "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icon": "emoji_events"},
-    "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icon": "fact_check"},
-    "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icon": "payments"},
-    "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icon": "menu_book"},
-    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icon": "calendar_month"},
-    "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icon": "bar_chart"},
-    "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icon": "person"},
-    "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icon": "qr_code_2"},
-    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icon": "apartment"},
-    "Verificar Aulas que Faltam nos Diários": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icon": "search"},
-    "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icon": "description"},
+    "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icon": "ph-trophy"},
+    "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icon": "ph-check-square"},
+    "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icon": "ph-money"},
+    "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icon": "ph-book-open"},
+    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icon": "ph-calendar-blank"},
+    "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icon": "ph-chart-bar"},
+    "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icon": "ph-user"},
+    "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icon": "ph-qr-code"},
+    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icon": "ph-buildings"},
+    "Verificar Aulas que Faltam nos Diários": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icon": "ph-magnifying-glass"},
+    "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icon": "ph-file-text"},
 }
 
 # --- Ordenação alfabética em coluna ---
@@ -223,7 +220,7 @@ with col_esq:
             f'''
             <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
                 <span class="app-name">{nome}</span>
-                <span class="app-icon">{info['icon']}</span>
+                <i class="{info['icon']}"></i>
             </a>
             ''',
             unsafe_allow_html=True
@@ -235,7 +232,7 @@ with col_dir:
             f'''
             <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
                 <span class="app-name">{nome}</span>
-                <span class="app-icon">{info['icon']}</span>
+                <i class="{info['icon']}"></i>
             </a>
             ''',
             unsafe_allow_html=True
