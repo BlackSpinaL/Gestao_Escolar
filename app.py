@@ -15,7 +15,6 @@ def get_base64(bin_file):
 
 # --- Função para carregar o CSS da Fonte Rawline (Arquivos TTF locais) ---
 def get_font_face_css():
-    # Tenta carregar os arquivos TTF específicos da sua pasta
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
     font_700 = get_base64('rawline-700.ttf')
@@ -49,7 +48,6 @@ def get_font_face_css():
         }}
         """
     
-    # Se não encontrou nenhum arquivo local, usa o CDN do governo como fallback
     if not css:
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
     
@@ -87,12 +85,10 @@ st.markdown(f"""
     /* ===== FONTE RAWLINE ===== */
     {font_css}
 
-    /* Força a fonte Rawline em todos os elementos do Streamlit */
     html, body, .stApp, .stApp * {{
         font-family: 'Rawline', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }}
 
-    /* Restaura a fonte dos ícones do Streamlit (Material Symbols) para não quebrar emojis */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"],
@@ -100,7 +96,6 @@ st.markdown(f"""
         font-family: 'Material Symbols Rounded', 'Material Icons' !important;
     }}
 
-    /* Ajuste de cor do texto para garantir legibilidade no fundo escuro */
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
     .stApp p, .stApp span, .stApp div, .stApp a, .stApp li,
     .stApp label, .stApp table, .stApp th, .stApp td,
@@ -109,18 +104,21 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* Container principal */
+    /* Container principal - alinhado à esquerda e com largura controlada */
     .block-container {{
-        max-width: 1400px;
+        max-width: 900px !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
+        padding-left: 2rem;
     }}
 
     /* ===== TÍTULO E SUBTÍTULO ===== */
     .titulo-central {{
         text-align: center !important;
         color: #FFFFFF !important;
-        font-weight: 700; /* Usando o peso 700 que você tem */
+        font-weight: 700;
         font-size: 2.5rem;
         line-height: 1.25;
         margin: 0 0 0.4rem 0;
@@ -130,36 +128,35 @@ st.markdown(f"""
     .subtitulo-central {{
         text-align: center !important;
         color: #CBD5E1 !important;
-        font-weight: 400; /* Usando o peso 400 que você tem */
+        font-weight: 400;
         font-size: 1.1rem;
         margin: 0 0 1.2rem 0;
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }}
 
-    /* Linha divisória em cinza prateado */
     hr {{
         border-color: #64748B !important;
         box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
         opacity: 0.8;
     }}
 
-    /* ===== CARD-LINK (substitui o botão) ===== */
+    /* ===== CARD-LINK (Lista vertical, alinhado à esquerda) ===== */
     a.app-card {{
         display: flex !important;
         align-items: center !important;
-        justify-content: center !important;
-        gap: 1rem !important;
+        justify-content: flex-start !important;
+        gap: 0.8rem !important;
 
         width: 100% !important;
-        min-height: 90px !important;
-        padding: 1.2rem 1.5rem !important;
-        margin-bottom: 1rem !important;
+        min-height: 50px !important;
+        padding: 0.8rem 1.2rem !important;
+        margin-bottom: 0.5rem !important;
 
         background: rgba(24, 28, 36, 0.88) !important;
         backdrop-filter: blur(8px) !important;
         border: 1px solid rgba(148, 163, 184, 0.35) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
 
         color: #FFFFFF !important;
         text-decoration: none !important;
@@ -167,15 +164,15 @@ st.markdown(f"""
     }}
 
     a.app-card:hover {{
-        transform: translateY(-4px) !important;
+        transform: translateX(5px) !important;
         border-color: #CBD5E1 !important;
         background: rgba(38, 45, 56, 0.95) !important;
-        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 8px 16px rgba(255, 255, 255, 0.15) !important;
         text-decoration: none !important;
     }}
 
     a.app-card .check-icon {{
-        font-size: 1.8rem !important;
+        font-size: 1.2rem !important;
         color: #22C55E !important;
         flex-shrink: 0 !important;
         text-shadow: 0 0 8px rgba(34, 197, 94, 0.6) !important;
@@ -187,10 +184,11 @@ st.markdown(f"""
     }}
 
     a.app-card .app-name {{
-        font-size: 1.35rem !important;
+        font-size: 1.1rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         line-height: 1.3 !important;
+        text-align: left !important;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
     }}
 
@@ -228,7 +226,7 @@ apps = {
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icone": "📝"},
     "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icone": "💰"},
     "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icone": "📚"},
-    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icone": "📅"}, # NOVO APP AQUI
+    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icone": "📅"},
     "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icone": "📊"},
     "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icone": "👤"},
     "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icone": "📱"},
@@ -237,20 +235,17 @@ apps = {
     "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icone": "📓"}, 
 }
 
-# --- Layout em 2 colunas com cards-link clicáveis (ORDEM ALFABÉTICA) ---
-cols = st.columns(2)
-
-for i, (nome, info) in enumerate(sorted(apps.items())):
-    with cols[i % 2]:
-        st.markdown(
-            f'''
-            <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
-                <span class="check-icon">✔</span>
-                <span class="app-name">{info['icone']} {nome}</span>
-            </a>
-            ''',
-            unsafe_allow_html=True
-        )
+# --- Layout em 1 coluna (Lista Vertical) ---
+for nome, info in sorted(apps.items()):
+    st.markdown(
+        f'''
+        <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
+            <span class="check-icon">✔</span>
+            <span class="app-name">{info['icone']} {nome}</span>
+        </a>
+        ''',
+        unsafe_allow_html=True
+    )
 
 # --- Rodapé ---
 st.markdown("""
