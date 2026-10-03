@@ -3,7 +3,6 @@ import base64
 
 st.set_page_config(page_title="Sistema de Gerenciamento Escolar", layout="wide", initial_sidebar_state="collapsed")
 
-# --- Função para carregar arquivos em Base64 ---
 def get_base64(bin_file):
     try:
         with open(bin_file, 'rb') as f:
@@ -12,7 +11,6 @@ def get_base64(bin_file):
     except FileNotFoundError:
         return None
 
-# --- Fonte Rawline ---
 def get_font_face_css():
     font_300 = get_base64('rawline-300.ttf')
     font_400 = get_base64('rawline-400.ttf')
@@ -28,7 +26,6 @@ def get_font_face_css():
         return "@import url('https://cdntgr.servicos.gov.br/fonts/rawline/rawline.css');"
     return css
 
-# --- Fundo com overlay mais escuro ---
 def set_background(png_file):
     bin_str = get_base64(png_file)
     if bin_str:
@@ -53,7 +50,6 @@ if not set_background('fundo.jpg'):
 
 font_css = get_font_face_css()
 
-# --- Importa Material Symbols Rounded (fonte de ícones moderna) ---
 st.markdown("""
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 """, unsafe_allow_html=True)
@@ -66,7 +62,6 @@ st.markdown(f"""
         font-family: 'Rawline', 'Segoe UI', Tahoma, sans-serif !important;
     }}
 
-    /* Preserva a fonte Material Symbols nos ícones */
     [data-testid="stIconMaterial"],
     .material-symbols-rounded,
     span[class*="material-symbols"],
@@ -82,7 +77,6 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* Container principal */
     .block-container {{
         max-width: 1100px !important;
         margin: 0 auto !important;
@@ -92,7 +86,7 @@ st.markdown(f"""
         padding-right: 2rem;
     }}
 
-    /* ===== TÍTULO CENTRALIZADO (como na imagem atual) ===== */
+    /* ===== TÍTULO CENTRALIZADO ===== */
     .titulo-central {{
         text-align: center !important;
         color: #F1F5F9 !important;
@@ -114,7 +108,7 @@ st.markdown(f"""
         text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
     }}
 
-    /* ===== CARD (item da lista) ===== */
+    /* ===== CARD ===== */
     a.app-card {{
         display: flex !important;
         align-items: center !important;
@@ -126,7 +120,6 @@ st.markdown(f"""
         padding: 0.7rem 1.1rem !important;
         margin-bottom: 0.55rem !important;
 
-        /* Paleta moderna: cinza grafite com transparência */
         background: rgba(38, 41, 48, 0.82) !important;
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(203, 213, 225, 0.15) !important;
@@ -146,7 +139,6 @@ st.markdown(f"""
         text-decoration: none !important;
     }}
 
-    /* Nome do app */
     a.app-card .app-name {{
         font-size: 0.95rem !important;
         font-weight: 400 !important;
@@ -161,7 +153,6 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* Ícone moderno à direita */
     a.app-card .app-icon {{
         font-family: 'Material Symbols Rounded' !important;
         font-size: 20px !important;
@@ -178,7 +169,6 @@ st.markdown(f"""
         transform: translateX(3px) !important;
     }}
 
-    /* Rodapé discreto */
     .rodape-minimo {{
         text-align: center;
         color: #64748B !important;
@@ -196,63 +186,52 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título e subtítulo centralizados ---
+# --- Título e subtítulo ---
 st.markdown('<h1 class="titulo-central">🏫 Sistema de Gerenciamento Escolar 🏫</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo em uma nova aba</p>', unsafe_allow_html=True)
 
-# --- Dicionário de Aplicativos (com ícones modernos Material Symbols) ---
-# Referência de ícones: https://fonts.google.com/icons
+# --- Dicionário de Aplicativos ---
 apps = {
-    "Apura Resultado": {
-        "url": "https://apura-resultado-final.streamlit.app/",
-        "icon": "emoji_events",       # troféu
-    },
-    "Avaliação Especial": {
-        "url": "https://avaliacaoespecialcontagem.streamlit.app/",
-        "icon": "fact_check",         # checklist
-    },
-    "Bolsa Família": {
-        "url": "https://bolsafamilia2.streamlit.app/",
-        "icon": "payments",           # pagamento
-    },
-    "Contagem de Aulas no Siea": {
-        "url": "https://contagemdeaulasnosiea.streamlit.app/",
-        "icon": "menu_book",          # livro aberto
-    },
-    "Criação de Horário Escolar": {
-        "url": "https://sistemadecriacaodehorarioescolar.streamlit.app/",
-        "icon": "calendar_month",     # calendário
-    },
-    "Pontuação no SGE": {
-        "url": "https://conceitosnosge.streamlit.app/",
-        "icon": "bar_chart",          # gráfico
-    },
-    "Solicitação de Vagas - Participante": {
-        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html",
-        "icon": "person",             # pessoa
-    },
-    "Solicitação de Vagas - QR Code": {
-        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html",
-        "icon": "qr_code_2",          # qrcode
-    },
-    "Solicitação de Vagas - Secretaria": {
-        "url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html",
-        "icon": "apartment",          # prédio
-    },
-    "Verificar Aulas que Faltam nos Diários": {
-        "url": "https://aulasprevistasxaulasrealizadas.streamlit.app/",
-        "icon": "search",             # lupa
-    },
-    "Verificar Notas em Branco nos Diários": {
-        "url": "https://verificarnotasembranconosdiarios.streamlit.app/",
-        "icon": "description",        # documento
-    },
+    "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icon": "emoji_events"},
+    "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icon": "fact_check"},
+    "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icon": "payments"},
+    "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icon": "menu_book"},
+    "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icon": "calendar_month"},
+    "Pontuação no SGE": {"url": "https://conceitosnosge.streamlit.app/", "icon": "bar_chart"},
+    "Solicitação de Vagas - Participante": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/participante.html", "icon": "person"},
+    "Solicitação de Vagas - QR Code": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/qrcode.html", "icon": "qr_code_2"},
+    "Solicitação de Vagas - Secretaria": {"url": "https://blackspinal.github.io/Solicitacao_de_Vagas/secretaria.html", "icon": "apartment"},
+    "Verificar Aulas que Faltam nos Diários": {"url": "https://aulasprevistasxaulasrealizadas.streamlit.app/", "icon": "search"},
+    "Verificar Notas em Branco nos Diários": {"url": "https://verificarnotasembranconosdiarios.streamlit.app/", "icon": "description"},
 }
 
-# --- Layout em 2 colunas ---
-cols = st.columns(2)
-for i, (nome, info) in enumerate(sorted(apps.items())):
-    with cols[i % 2]:
+# ===== ORDENAÇÃO ALFABÉTICA EM COLUNA (column-major) =====
+# 1. Ordena alfabeticamente
+# 2. Divide a lista ao meio (coluna 1 pega a primeira metade, coluna 2 a segunda)
+# 3. Renderiza cada coluna de cima para baixo
+
+itens_ordenados = sorted(apps.items())          # ordem alfabética
+meio = (len(itens_ordenados) + 1) // 2          # arredonda pra cima (coluna 1 fica maior)
+
+coluna_1 = itens_ordenados[:meio]               # primeira metade
+coluna_2 = itens_ordenados[meio:]               # segunda metade
+
+col_esq, col_dir = st.columns(2)
+
+with col_esq:
+    for nome, info in coluna_1:
+        st.markdown(
+            f'''
+            <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
+                <span class="app-name">{nome}</span>
+                <span class="app-icon">{info['icon']}</span>
+            </a>
+            ''',
+            unsafe_allow_html=True
+        )
+
+with col_dir:
+    for nome, info in coluna_2:
         st.markdown(
             f'''
             <a class="app-card" href="{info['url']}" target="_blank" rel="noopener noreferrer">
