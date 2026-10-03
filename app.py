@@ -32,7 +32,7 @@ def set_background(png_file):
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -77,7 +77,7 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* ===== Container mais estreito (ajuste 1) ===== */
+    /* ===== Container mais estreito ===== */
     .block-container {{
         max-width: 980px !important;
         margin: 0 auto !important;
@@ -87,27 +87,27 @@ st.markdown(f"""
         padding-right: 2rem;
     }}
 
-    /* ===== TÍTULO (emoji só na frente — ajuste 2) ===== */
+    /* ===== TÍTULO (emoji só na frente) ===== */
     .titulo-central {{
         text-align: center !important;
-        color: #F1F5F9 !important;
+        color: #FFFFFF !important; /* Branco puro para máximo contraste */
         font-weight: 700;
         font-size: 1.75rem;
         line-height: 1.25;
         margin: 0 0 0.5rem 0;
         letter-spacing: 0.3px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 1); /* Sombra mais forte */
     }}
 
-    /* ===== Subtítulo com mais respiro (ajuste 3) ===== */
+    /* ===== Subtítulo com mais respiro ===== */
     .subtitulo-central {{
         text-align: center !important;
-        color: #94A3B8 !important;
+        color: #CBD5E1 !important; /* Cinza mais claro */
         font-weight: 400;
-        font-size: 0.85rem;
+        font-size: 0.9rem; /* Aumentado para melhor leitura */
         margin: 0 0 2.4rem 0;
         letter-spacing: 0.2px;
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
     }}
 
     /* ===== CARD ===== */
@@ -122,11 +122,12 @@ st.markdown(f"""
         padding: 0.75rem 1.15rem !important;
         margin-bottom: 0.55rem !important;
 
-        background: rgba(38, 41, 48, 0.82) !important;
+        /* AJUSTE PRINCIPAL: Fundo mais opaco e um pouco mais claro */
+        background: rgba(45, 50, 60, 0.95) !important; 
         backdrop-filter: blur(10px) !important;
-        border: 1px solid rgba(203, 213, 225, 0.15) !important;
+        border: 1px solid rgba(203, 213, 225, 0.2) !important; /* Borda mais visível */
         border-radius: 10px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* Sombra mais forte */
 
         color: #E2E8F0 !important;
         text-decoration: none !important;
@@ -134,10 +135,10 @@ st.markdown(f"""
     }}
 
     a.app-card:hover {{
-        background: rgba(51, 55, 64, 0.95) !important;
-        border-color: rgba(96, 165, 250, 0.45) !important;
+        background: rgba(60, 65, 75, 1) !important; /* Mais claro no hover */
+        border-color: rgba(96, 165, 250, 0.8) !important; /* Borda azul mais visível */
         transform: translateY(-2px) !important;
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.18) !important;
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3) !important;
         text-decoration: none !important;
     }}
 
@@ -173,17 +174,17 @@ st.markdown(f"""
 
     .rodape-minimo {{
         text-align: center;
-        color: #64748B !important;
-        font-size: 10.5px;
+        color: #94A3B8 !important; /* Um pouco mais claro */
+        font-size: 12px; /* Aumentado para melhor legibilidade */
         margin-top: 2.5rem;
         letter-spacing: 0.3px;
         line-height: 1.6;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 1);
     }}
 
     .rodape-minimo strong {{
-        color: #94A3B8 !important;
-        font-weight: 500;
+        color: #CBD5E1 !important;
+        font-weight: 600;
     }}
 </style>
 """, unsafe_allow_html=True)
