@@ -196,6 +196,7 @@ st.markdown('<p class="subtitulo-central">Clique em um aplicativo para abri-lo e
 apps = {
     "Apura Resultado": {"url": "https://apura-resultado-final.streamlit.app/", "icon": "emoji_events"},
     "Avaliação Especial": {"url": "https://avaliacaoespecialcontagem.streamlit.app/", "icon": "fact_check"},
+    "Avaliação Especial - Verificar Notas Lançadas": {"url": "https://avaliacaoespecialverificarnotaslancadas.streamlit.app/", "icon": "grading"},
     "Bolsa Família": {"url": "https://bolsafamilia2.streamlit.app/", "icon": "payments"},
     "Contagem de Aulas no Siea": {"url": "https://contagemdeaulasnosiea.streamlit.app/", "icon": "menu_book"},
     "Criação de Horário Escolar": {"url": "https://sistemadecriacaodehorarioescolar.streamlit.app/", "icon": "calendar_month"},
