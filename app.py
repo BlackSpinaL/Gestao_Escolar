@@ -32,7 +32,7 @@ def set_background(png_file):
         page_bg_img = f'''
         <style>
         .stApp {{
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("data:image/jpeg;base64,{bin_str}");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("data:image/jpeg;base64,{bin_str}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
